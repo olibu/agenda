@@ -21,4 +21,5 @@ Agenda is a PWA. The following frameworks/services are used:
 
 For development purposes the following additional frameworks are used
 * vite (packaging and hot reload development)
+* vite-plugin-pwa (PWD capabilities)
 
