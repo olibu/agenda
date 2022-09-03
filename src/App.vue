@@ -15,7 +15,7 @@
           prepend-icon="mdi-plus"
           title="Add meeting"
           value="new-meeting"
-          :to="getNewMeeting()"
+          to="/meeting/-1"
         />
         <v-list-item
           prepend-icon="mdi-information"
@@ -31,13 +31,3 @@
     </v-main>
   </v-app>
 </template>
-
-<script setup>
-import { useMeetingStore } from '@/stores/MeetingStore.js'
-const store = useMeetingStore()
-
-const getNewMeeting = () => {
-  let meetingId = store.addNewMeeting()
-  return `/meeting/${meetingId}`
-}
-</script>
