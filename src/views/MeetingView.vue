@@ -37,8 +37,6 @@
       class="ma-2"
     >
       Agenda:
-      
-
     </p>
 
     <v-list
