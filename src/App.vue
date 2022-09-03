@@ -4,20 +4,26 @@
       permanent
       rail
     >
-      <v-list density="compact" nav>
+      <v-list
+        class="pa-0"
+        nav
+      >
         <v-list-item
+          class="pl-4 ma-0"
           prepend-icon="mdi-calendar"
           title="Meetings"
           value="meetings"
           to="/"
         />
         <v-list-item
+          class="pl-4 ma-0"
           prepend-icon="mdi-plus"
           title="Add meeting"
           value="new-meeting"
           to="/meeting/-1"
         />
         <v-list-item
+          class="pl-4 ma-0"
           prepend-icon="mdi-information"
           title="About"
           value="about"
