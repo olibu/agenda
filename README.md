@@ -4,15 +4,11 @@
 
 Agenda is a browser based standalone tool to track the time table of meetings.
 
+You can use the tool directly on [my github page](https://olibu.github.io/agenda).
+
 You might ask why there is another tool to this. And you are right.
 I really love the [Online Timer App](https://webuhr.de/timer/). I use it very often for standup meetings.
 For more complex meetings I like the [Timebocks App](https://timeblocks.co/). Timeblocks is a closed source free to use for non-commercial. This makes it somehow unattractive for me. It looks great but it seems to get commercial somewhen.
-
-## Using "Agenda"
-
-Until now the tool cannot be used easily. You have to clone the code and build it locally.
-
-I plan to provide it as free online page in case I find a solution to operate it without costs.
 
 ## Technologic Details
 
@@ -20,7 +16,7 @@ As not everyone is interested in technologic details I will provide them [here](
 
 ## User Guide
 
-The tool is mentioned the be intuitive. Thus there is no need to provide a user guide.
+The tool is mentioned the be intuitive. Thus there is no need to provide a user guide ;)
 
 Just start the tool, create meeting and add a timeslot for each agenda entry. When the meeting strats you can start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry.
 
@@ -55,7 +51,12 @@ More details can be found in the [development section](DEVELOPMENT.md).
 
 ## Release Notes
 
-no releases available
+### V.0.1.1
+
+Initial version with the following basic features
+* List of meetings with delete functionallity
+* Create new meetings
+* Application can be used offline
 
 ## License
 
