@@ -43,19 +43,17 @@
   </v-col>
   <v-col
     cols="1"
-    class="pl-3 pt-2 pb-1 pr-1"
+    class="pl-3 pt-3 pb-1 pr-1"
   >
   <v-menu
       open-on-hover
     >
       <template v-slot:activator="{ props }">
         <v-btn
-          v-bind:color="inactive ? 'purple-darken-2' : 'grey-darken-3'"
           v-bind="props"
           icon="mdi-dots-vertical"
           density="compact"
-          size="small"
-          variant="flat"
+          variant="text"
         />
       </template>
 
