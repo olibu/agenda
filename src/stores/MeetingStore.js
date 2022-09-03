@@ -28,5 +28,11 @@ export const useMeetingStore = defineStore('MeetingStore', {
     getMeeting(id) {
       return this.meetings.find((meeting) => meeting.id === id)
     },
+    deleteMeeting(id) {
+      const pos = this.meetings.findIndex((meeting) => meeting.id === id)
+      if (pos != -1) {
+        return this.meetings.splice(pos, 1)
+      }
+    },
   },
 })
