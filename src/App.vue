@@ -9,19 +9,19 @@
           prepend-icon="mdi-calendar"
           title="Meetings"
           value="meetings"
-          @click="showMeetingList"
+          to="/"
         />
         <v-list-item
           prepend-icon="mdi-plus"
           title="Add meeting"
           value="new-meeting"
-          @click="showNewMeeting"
+          :to="getNewMeeting()"
         />
         <v-list-item
           prepend-icon="mdi-information"
           title="About"
           value="about"
-          @click="showAbout"
+          to="/about"
         />
       </v-list>
     </v-navigation-drawer>
@@ -33,22 +33,11 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
 const store = useMeetingStore()
 
-const router = useRouter()
-
-const showMeetingList = () => {
-  router.push('/')
-}
-
-const showNewMeeting = () => {
+const getNewMeeting = () => {
   let meetingId = store.addNewMeeting()
-  router.push(`/meeting/${meetingId}`)
-}
-
-const showAbout = () => {
-  router.push('/about')
+  return `/meeting/${meetingId}`
 }
 </script>
