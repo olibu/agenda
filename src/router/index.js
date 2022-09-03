@@ -10,7 +10,7 @@ const routes = [
     component: MeetingsList,
   },
   {
-    path: '/meeting',
+    path: '/meeting/:id',
     name: 'meeting',
     component: Meeting,
   },

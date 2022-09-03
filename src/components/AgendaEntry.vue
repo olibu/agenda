@@ -12,7 +12,7 @@
       density="compact"
       variant="outlined"
       hide-details="auto"
-      v-model="title"
+      v-model="agenda.title"
     />
   </v-col>
   <v-col
@@ -24,7 +24,7 @@
       density="compact"
       variant="outlined"
       hide-details="auto"
-      v-model="time"
+      v-model="agenda.time"
     />
   </v-col>
   <v-col
@@ -35,10 +35,10 @@
       :rotate="360"
       :size="40"
       :width="5"
-      :model-value="ctime"
+      :model-value="agenda.ctime"
       color="teal"
     >
-      {{ ctime }}
+      {{ agenda.ctime }}
     </v-progress-circular>
   </v-col>
   <v-col
@@ -76,24 +76,11 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-const props = defineProps({
-  title: {
-    type: String,
-    default: 'title'
-  },
-  time: {
-    type: Number,
-    default: 60
-  },
-  ctime: {
-    type: Number,
-    default: 0
-  }
-})
+const props = defineProps(['agenda'])
 
 const emit = defineEmits(['create', 'delete'])
 
-watch(() => props.title, (newValue, oldValue) => {
+watch(() => props.agenda.title, (newValue, oldValue) => {
   inactive.value = true
   if (!oldValue && newValue) {
     emit('create')
@@ -105,7 +92,7 @@ watch(() => props.title, (newValue, oldValue) => {
 
 const inactive = ref(false)
 
-if (props.title) {
+if (props.agenda.title) {
   inactive.value = true
 }
 </script>

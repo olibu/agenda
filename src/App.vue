@@ -34,6 +34,8 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { useMeetingStore } from '@/stores/MeetingStore.js'
+const store = useMeetingStore()
 
 const router = useRouter()
 
@@ -42,7 +44,8 @@ const showMeetingList = () => {
 }
 
 const showNewMeeting = () => {
-  router.push('/meeting')
+  let meetingId = store.addNewMeeting()
+  router.push(`/meeting/${meetingId}`)
 }
 
 const showAbout = () => {

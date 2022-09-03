@@ -15,7 +15,6 @@
           v-model="meeting.title"
           hide-details="auto"
           variant="outlined"
-          autofocus
           placeholder="Title"
           density="compact"
         />
@@ -45,12 +44,10 @@
     <v-list
       class="ma-0 pa-0"
       v-for="agenda in meeting.agenda"
-      :key="agenda"
+      :value="agenda"
     >
       <AgendaEntry
-        :ctime="agenda.ctime"
-        :time="agenda.time"
-        :title="agenda.title"
+        :agenda="agenda"
         @create="createAgenda"
         @delete="deleteAgenda(agenda)"
       />
@@ -61,31 +58,22 @@
 
 <script setup>
 import AgendaEntry from '@/components/AgendaEntry.vue'
-import { ref } from 'vue'
-import { v4 as uuidv4 } from 'uuid';
+import { useRoute } from 'vue-router'
+import { useMeetingStore } from '@/stores/MeetingStore.js'
+const store = useMeetingStore()
 
-const meeting = ref({
-  id: uuidv4(),
-  title: '',
-  time: 60,
-  agenda: [
-    {
-      title: '',
-      time: 10,
-      ctime: 0
-    }
-  ]
-})
+const route = useRoute()
+const meeting = store.getMeeting(route.params.id)
 
 const createAgenda = () => {
-  meeting.value.agenda.push({title: '', time: 10, ctime: 0})
+  meeting.agenda.push({title: '', time: 10, ctime: 0})
 
 }
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
-  let pos = meeting.value.agenda.findIndex((a) => a === agenda)
-  if (pos !== meeting.value.agenda.length) {
-    meeting.value.agenda.splice(pos, 1)
+  let pos = meeting.agenda.findIndex((a) => a === agenda)
+  if (pos !== meeting.agenda.length) {
+    meeting.agenda.splice(pos, 1)
   }
 
 }
