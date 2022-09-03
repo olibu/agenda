@@ -26,6 +26,22 @@ export const useMeetingStore = defineStore('MeetingStore', {
       return meeting.id
     },
     getMeeting(id) {
+      if (id == -1) {
+        const meeting = {
+          id: uuidv4(),
+          title: '',
+          time: 60,
+          agenda: [
+            {
+              title: '',
+              time: 10,
+              ctime: 0,
+            },
+          ],
+        }
+        this.meetings.push(meeting)
+        return meeting
+      }
       return this.meetings.find((meeting) => meeting.id === id)
     },
     deleteMeeting(id) {
