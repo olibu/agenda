@@ -76,7 +76,7 @@
 import { ref, watch } from 'vue'
 const props = defineProps(['agenda'])
 
-const emit = defineEmits(['create', 'delete'])
+const emit = defineEmits(['create', 'delete', 'timechange'])
 
 watch(() => props.agenda.title, (newValue, oldValue) => {
   inactive.value = true
@@ -84,7 +84,10 @@ watch(() => props.agenda.title, (newValue, oldValue) => {
     emit('create')
   }
   else if (oldValue && !newValue) {
-    emit('delete')
+    emit('delete', props.agenda)
+  }
+  if (!newValue) {
+    inactive.value = false
   }
 })
 
@@ -93,4 +96,13 @@ const inactive = ref(false)
 if (props.agenda.title) {
   inactive.value = true
 }
+
+watch(() => props.agenda.time, (newValue, oldValue) => {
+  let oldTime = parseInt(oldValue)
+  if (isNaN(oldTime)) { oldTime = 0}
+  let newTime = parseInt(newValue)
+  if (isNaN(newTime)) { newTime = 0}
+
+  emit('timechange', {newTime, oldTime})
+})
 </script>

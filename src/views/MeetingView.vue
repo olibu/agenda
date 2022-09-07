@@ -2,7 +2,7 @@
   <v-card
     class="ma-2 rounded-xl"
   >
-    <v-card-title align="center">Meeting - {{meeting.title}}</v-card-title>
+    <v-card-title align="center">Meeting - {{mRef.title}}</v-card-title>
 
     <v-row
       class="pa-0 ma-1"
@@ -12,7 +12,7 @@
         class="pa-1"
       >
         <v-text-field
-          v-model="meeting.title"
+          v-model="mRef.title"
           hide-details="auto"
           variant="outlined"
           placeholder="Title"
@@ -26,9 +26,10 @@
         <v-text-field
           hide-details="auto"
           variant="outlined"
-          v-model="meeting.time"
+          v-model="mRef.time"
           density="compact"
           placeholder="min"
+          disabled
         />
       </v-col>
     </v-row>
@@ -41,13 +42,14 @@
 
     <v-list
       class="ma-0 pa-0"
-      v-for="agenda in meeting.agenda"
+      v-for="agenda in mRef.agenda"
       :value="agenda"
     >
       <AgendaEntry
         :agenda="agenda"
         @create="createAgenda"
-        @delete="deleteAgenda(agenda)"
+        @delete="deleteAgenda"
+        @timechange="timeChanged"
       />
     </v-list>
 
@@ -55,6 +57,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
 import { useRoute } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
@@ -63,17 +66,22 @@ const store = useMeetingStore()
 const route = useRoute()
 const meeting = store.getMeeting(route.params.id)
 
+const mRef = ref(meeting)
+
 const createAgenda = () => {
-  meeting.agenda.push({title: '', time: 10, ctime: 0})
+  mRef.value.agenda.push({title: '', time: 0, ctime: 0})
 
 }
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
-  let pos = meeting.agenda.findIndex((a) => a === agenda)
-  if (pos !== meeting.agenda.length) {
-    meeting.agenda.splice(pos, 1)
+  let pos = mRef.value.agenda.findIndex((a) => a === agenda)
+  if (pos !== mRef.value.agenda.length) {
+    mRef.value.agenda.splice(pos, 1)
   }
-
 }
 
+const timeChanged = (time) => {
+  mRef.value.time = mRef.value.time - time.oldTime
+  mRef.value.time = mRef.value.time + time.newTime
+}
 </script>

@@ -51,6 +51,11 @@ More details can be found in the [development section](DEVELOPMENT.md).
 
 ## Release Notes
 
+### V.0.1.2
+
+* Fix: reference to data fixed
+* New: Back propagation of agenda time and meeting time calculation
+
 ### V.0.1.1
 
 Initial version with the following basic features

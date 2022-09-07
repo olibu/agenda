@@ -30,11 +30,11 @@ export const useMeetingStore = defineStore('MeetingStore', {
         const meeting = {
           id: uuidv4(),
           title: '',
-          time: 60,
+          time: 0,
           agenda: [
             {
               title: '',
-              time: 10,
+              time: 0,
               ctime: 0,
             },
           ],
