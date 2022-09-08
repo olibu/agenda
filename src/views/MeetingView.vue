@@ -34,6 +34,39 @@
       </v-col>
     </v-row>
 
+    <v-row>
+      <v-col cols="4"></v-col>
+      <v-col cols="1">
+        <v-btn 
+          icon="mdi-skip-previous"
+        />
+      </v-col>
+      <v-col cols="1">
+        <v-btn 
+          icon="mdi-play"
+          @click="play"
+          v-if="!playing"
+        />
+        <v-btn 
+          icon="mdi-pause"
+          @click="pause"
+          v-if="playing"
+        />
+      </v-col>
+      <v-col cols="1">
+        <v-btn 
+          icon="mdi-stop"
+          @click="stop"
+        />
+      </v-col>
+      <v-col cols="1">
+        <v-btn 
+          icon="mdi-skip-next"
+        />
+      </v-col>
+      <v-col  cols="4"></v-col>
+    </v-row>
+
     <p
       class="ma-2"
     >
@@ -83,5 +116,76 @@ const deleteAgenda = (agenda) => {
 const timeChanged = (time) => {
   mRef.value.time = mRef.value.time - time.oldTime
   mRef.value.time = mRef.value.time + time.newTime
+}
+
+let currentAgenda
+let intervalPointer   // reference to the current agenda point
+let intervalPointerId
+let timeState = 0  // 0: off; 1: running 2: paused
+const playing = ref(false)
+
+const play = () => {
+  if (timeState === 0) {
+    intervalPointerId = 0
+    currentAgenda = mRef.value.agenda[intervalPointerId]
+    resetAllTimers()
+    currentAgenda.isActive = true
+    startTimer()
+  }
+  else if (timeState === 2) {
+    startTimer()
+  }
+  timeState = 1
+  playing.value = true
+}
+
+const stop = () => {
+  stopTimer()
+  resetAllTimers()
+  timeState = 0
+  playing.value = false
+}
+
+const pause = () => {
+  if (timeState === 1) {
+    stopTimer()
+    timeState = 2
+  }
+  playing.value = false
+}
+
+const startTimer = () => {
+  if (!intervalPointer) {
+    intervalPointer = setInterval(() => {
+      currentAgenda.ctime = currentAgenda.ctime + 1
+      if (currentAgenda.ctime >= currentAgenda.time) {
+        // move to next agenda entry
+        intervalPointerId = intervalPointerId + 1
+        if (mRef.value.agenda.length > intervalPointerId) {
+          currentAgenda.isActive = false
+          currentAgenda = mRef.value.agenda[intervalPointerId]
+          currentAgenda.isActive = true
+        }
+        else {
+          currentAgenda.isActive = false
+          alert('ende');
+          stop()
+        }
+      }
+    }, 1000)
+  }
+}
+const stopTimer = () => {
+  if (intervalPointer) {
+    clearInterval(intervalPointer)
+    intervalPointer = null
+  }
+}
+
+const resetAllTimers = () => {
+  for (let agenda of mRef.value.agenda) {
+    agenda.ctime = 0
+    agenda.isActive = false
+  }
 }
 </script>

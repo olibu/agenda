@@ -1,7 +1,7 @@
 <template>
   <v-row
     class="pa-0 ma-1 rounded-lg"
-    v-bind:class="inactive ? 'bg-purple-darken-2' : 'bg-grey-darken-3'"
+    v-bind:class="interactiveBgColor()"
   >
   <v-col
     cols="8"
@@ -25,6 +25,7 @@
       variant="outlined"
       hide-details="auto"
       v-model="agenda.time"
+      type="number"
     />
   </v-col>
   <v-col
@@ -35,10 +36,11 @@
       :rotate="360"
       :size="40"
       :width="5"
-      :model-value="agenda.ctime"
+      :model-value="agenda.ctime / agenda.time * 100"
       color="teal"
+      v-if="inactive"
     >
-      {{ agenda.ctime }}
+      {{ (agenda.time - agenda.ctime) }}
     </v-progress-circular>
   </v-col>
   <v-col
@@ -105,4 +107,12 @@ watch(() => props.agenda.time, (newValue, oldValue) => {
 
   emit('timechange', {newTime, oldTime})
 })
+
+const interactiveBgColor = () => {
+  let bgColor = inactive.value ? 'bg-purple-darken-2' : 'bg-grey-darken-3'
+  if (inactive.value && props.agenda.isActive) {
+    bgColor = 'bg-pink-darken-3'
+  }
+  return bgColor
+}
 </script>
