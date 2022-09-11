@@ -51,12 +51,17 @@ More details can be found in the [development section](DEVELOPMENT.md).
 
 ## Release Notes
 
-### V.0.1.2
+### V0.2.0
+
+* Timer added
+* New: PWA (askes for) updates automatically after restart
+
+### V0.1.2
 
 * Fix: reference to data fixed
 * New: Back propagation of agenda time and meeting time calculation
 
-### V.0.1.1
+### V0.1.1
 
 Initial version with the following basic features
 * List of meetings with delete functionallity
