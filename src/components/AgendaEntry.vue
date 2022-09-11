@@ -30,7 +30,7 @@
   </v-col>
   <v-col
     cols="1"
-    class="pl-1 pt-1 pb-1 pr-0 text-caption"
+    class="pl-1 pt-1 pb-1 pr-0 text-body-1"
   >
   <v-progress-circular
       :rotate="360"
