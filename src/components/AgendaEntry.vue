@@ -56,6 +56,7 @@
           icon="mdi-dots-vertical"
           density="compact"
           variant="text"
+          class="ml-1"
         />
       </template>
 
