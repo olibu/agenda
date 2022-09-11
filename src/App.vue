@@ -34,6 +34,11 @@
 
     <v-main>
       <RouterView />
+      <ReloadPrompt />
     </v-main>
   </v-app>
 </template>
+
+<script setup>
+  import ReloadPrompt from './components/ReloadPrompt.vue';
+</script>
