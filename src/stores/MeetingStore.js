@@ -39,10 +39,12 @@ export const useMeetingStore = defineStore('MeetingStore', {
             },
           ],
         }
-        this.meetings.push(meeting)
         return meeting
       }
       return this.meetings.find((meeting) => meeting.id === id)
+    },
+    addMeeting(meeting) {
+      this.meetings.push(meeting)
     },
     deleteMeeting(id) {
       const pos = this.meetings.findIndex((meeting) => meeting.id === id)

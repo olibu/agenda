@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="ma-2 rounded-xl"
+    class="ma-2 pb-3 rounded-shaped bg-blue-grey-darken-3"
   >
     <v-card-title align="center">Meeting - {{mRef.title}}</v-card-title>
 
@@ -34,37 +34,47 @@
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col cols="4"></v-col>
-      <v-col cols="1">
+    <v-row v-if="route.params.id!=-1">
+      <v-col
+        align="center"
+        cols="12"
+        class="ma-2 pa-2"
+      >
         <v-btn 
           icon="mdi-skip-previous"
+          size="small"
+          variant="outlined"
+          class="mr-2"
         />
-      </v-col>
-      <v-col cols="1">
         <v-btn 
           icon="mdi-play"
+          size="small"
           @click="play"
           v-if="!playing"
+          variant="outlined"
+          class="mr-2"
         />
         <v-btn 
           icon="mdi-pause"
           @click="pause"
           v-if="playing"
+          size="small"
+          variant="outlined"
+          class="mr-2"
         />
-      </v-col>
-      <v-col cols="1">
         <v-btn 
           icon="mdi-stop"
           @click="stop"
+          size="small"
+          variant="outlined"
+          class="mr-2"
         />
-      </v-col>
-      <v-col cols="1">
         <v-btn 
           icon="mdi-skip-next"
+          size="small"
+          variant="outlined"
         />
       </v-col>
-      <v-col  cols="4"></v-col>
     </v-row>
 
     <p
@@ -74,7 +84,7 @@
     </p>
 
     <v-list
-      class="ma-0 pa-0"
+      class="ma-0 pa-0 bg-blue-grey-darken-3"
       v-for="agenda in mRef.agenda"
       :value="agenda"
     >
@@ -86,13 +96,23 @@
       />
     </v-list>
 
+    <v-row
+      v-if="route.params.id==-1"
+      class="ma-1"
+    >
+      <v-col align="right">
+        <v-btn
+          @click="addMeeting"          
+        >Add</v-btn>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
 const store = useMeetingStore()
 
@@ -116,6 +136,13 @@ const deleteAgenda = (agenda) => {
 const timeChanged = (time) => {
   mRef.value.time = mRef.value.time - time.oldTime
   mRef.value.time = mRef.value.time + time.newTime
+}
+
+const router = useRouter()
+
+const addMeeting = () => {
+  store.addMeeting(meeting)
+  router.push(`/meeting/${meeting.id}`)
 }
 
 let currentAgenda
