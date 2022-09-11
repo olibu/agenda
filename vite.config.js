@@ -12,6 +12,11 @@ export default defineConfig({
     vue(),
     vuetify({ autoImport: true }),
     VitePWA({
+      registerType: 'prompt',
+      // registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,woff,ttf,woff2,eot}'],
+      },
       injectRegister: 'auto',
       includeAssets: ['favicon.ico'],
       manifest: {
@@ -40,4 +45,7 @@ export default defineConfig({
     },
   },
   base: '/agenda/',
+  build: {
+    outDir: './agenda',
+  },
 })
