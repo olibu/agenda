@@ -51,6 +51,7 @@
   <v-menu
       open-on-hover
       location="start"
+      v-if="inactive"
     >
       <template v-slot:activator="{ props }">
         <v-btn
