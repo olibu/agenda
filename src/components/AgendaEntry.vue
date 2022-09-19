@@ -1,6 +1,8 @@
 <template>
   <v-row
     class="pa-0 ma-1 rounded-lg"
+    justify="center"
+    align="center"
     v-bind:class="interactiveBgColor()"
   >
   <v-col
@@ -30,11 +32,11 @@
   </v-col>
   <v-col
     cols="1"
-    class="pl-1 pt-1 pb-1 pr-0 text-body-1"
+    class="pl-1 pt-1 pb-1 pr-1 text-body-1"
   >
   <v-progress-circular
       :rotate="360"
-      :size="40"
+      :size="60"
       :width="5"
       :model-value="agenda.ctime / agenda.time * 100"
       color="teal"
@@ -45,10 +47,11 @@
   </v-col>
   <v-col
     cols="1"
-    class="pl-3 pt-3 pb-1 pr-1"
+    class="pl-4 pt-1 pb-1 pr-1"
   >
   <v-menu
       open-on-hover
+      location="start"
     >
       <template v-slot:activator="{ props }">
         <v-btn
@@ -56,19 +59,20 @@
           icon="mdi-dots-vertical"
           density="compact"
           variant="text"
-          class="ml-1"
+          class="ma-1"
         />
       </template>
 
-      <v-list>
-        <v-list-item
-          class="ma-0 pa-0"
+      <v-list
+      class="pt-0 pb-0"
+      >
+        <v-list-item-action
+          class="pt-0 pb-0"
         >
         <v-btn
-          width="100%"
           @click="$emit('delete')"
         >delete</v-btn>
-        </v-list-item>
+        </v-list-item-action>
       </v-list>
     </v-menu>
   </v-col>
