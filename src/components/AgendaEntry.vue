@@ -1,12 +1,11 @@
 <template>
   <v-row
     class="pa-0 ma-1 rounded-lg"
-    justify="center"
     align="center"
     v-bind:class="interactiveBgColor()"
   >
   <v-col
-    cols="8"
+    cols="7"
     class="pl-1 pt-1 pb-1 pr-0"
   >
     <v-text-field
@@ -31,8 +30,8 @@
     />
   </v-col>
   <v-col
-    cols="1"
-    class="pl-1 pt-1 pb-1 pr-1 text-body-1"
+    cols="2"
+    class="pl-1 pt-1 pb-1 pr-1 text-body-1 h-align"
   >
   <v-progress-circular
       :rotate="360"
@@ -47,7 +46,7 @@
   </v-col>
   <v-col
     cols="1"
-    class="pl-4 pt-1 pb-1 pr-1"
+    class="pt-1 pb-1"
   >
   <v-menu
       open-on-hover
@@ -59,7 +58,6 @@
           icon="mdi-dots-vertical"
           density="compact"
           variant="text"
-          class="ma-1"
         />
       </template>
 
@@ -121,3 +119,8 @@ const interactiveBgColor = () => {
   return bgColor
 }
 </script>
+<style>
+  .h-align {
+    text-align: center;
+  }
+</style>
