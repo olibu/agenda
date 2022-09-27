@@ -131,7 +131,7 @@ const createAgenda = () => {
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
-  if (pos !== mRef.value.agenda.length) {
+  if (pos+1 < mRef.value.agenda.length) {
     mRef.value.agenda.splice(pos, 1)
   }
 }

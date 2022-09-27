@@ -69,7 +69,7 @@
           class="pt-0 pb-0"
         >
         <v-btn
-          @click="$emit('delete')"
+          @click="deleteAgendaEntry"
         >delete</v-btn>
         </v-list-item-action>
       </v-list>
@@ -118,6 +118,10 @@ const interactiveBgColor = () => {
     bgColor = 'bg-pink-darken-3'
   }
   return bgColor
+}
+
+const deleteAgendaEntry = () => {
+  emit('delete', props.agenda)
 }
 </script>
 <style>
