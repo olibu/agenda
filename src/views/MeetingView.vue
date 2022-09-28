@@ -84,9 +84,11 @@ let id = (route.params && route.params.id) ? route.params.id : -1
 const mRef = ref(store.getMeeting(id))
 
 watch(() => route.params.id, (newValue, oldValue) => {
-  id = newValue
-  let meeting = store.getMeeting(id)
-  mRef.value = meeting
+  if (newValue) {
+    id = newValue
+    let meeting = store.getMeeting(id)
+    mRef.value = meeting
+  }
 })
 
 const createAgenda = () => {
