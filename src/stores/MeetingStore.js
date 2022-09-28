@@ -42,7 +42,7 @@ export const useMeetingStore = defineStore('MeetingStore', {
         return meeting
       }
       let meeting = this.meetings.find((meeting) => meeting.id === id)
-      return { ...meeting }
+      return JSON.parse(JSON.stringify(meeting))
     },
     addMeeting(meeting) {
       meeting.id = uuidv4()
