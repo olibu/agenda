@@ -20,7 +20,7 @@
           to="/about"
         >
           <v-icon>mdi-information</v-icon>
-          <span>New</span>
+          <span>About</span>
         </v-btn>
     </v-bottom-navigation>
 
