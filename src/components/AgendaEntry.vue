@@ -5,7 +5,7 @@
     v-bind:class="interactiveBgColor()"
   >
   <v-col
-    cols="7"
+    cols="9"
     class="pl-1 pt-1 pb-1 pr-0"
   >
     <v-text-field
@@ -28,21 +28,6 @@
       v-model="agenda.time"
       type="number"
     />
-  </v-col>
-  <v-col
-    cols="2"
-    class="pl-1 pt-1 pb-1 pr-1 text-body-1 h-align"
-  >
-  <v-progress-circular
-      :rotate="360"
-      :size="60"
-      :width="5"
-      :model-value="agenda.ctime / agenda.time * 100"
-      color="teal"
-      v-if="inactive"
-    >
-      {{ (agenda.time - agenda.ctime) }}
-    </v-progress-circular>
   </v-col>
   <v-col
     cols="1"

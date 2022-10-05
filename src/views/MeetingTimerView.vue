@@ -4,33 +4,25 @@
   >
     <v-card-title align="center">{{mRef.title}}</v-card-title>
 
-    <v-row
-      class="pa-0 ma-1"
-    >
-      <v-col
-        cols="10"
-        class="pa-1"
-      >
-        <v-text-field
-          v-model="mRef.title"
-          hide-details="auto"
-          variant="outlined"
-          placeholder="Title"
-          density="compact"
-        />
+    <v-row>
+      <v-col align="center">
+        <v-progress-circular
+          :rotate="360"
+          :size="100"
+          :width="10"
+          :model-value="currentAgendaTimePercentage"
+          color="teal"
+          class="text-h6"
+        >
+          <b>{{ currentAgendaTime }}</b>
+        </v-progress-circular>
+
       </v-col>
-      <v-col
-        cols="2"
-        class="pl-0 pt-1 pb-1 pr-1"
-      >
-        <v-text-field
-          hide-details="auto"
-          variant="outlined"
-          v-model="mRef.time"
-          density="compact"
-          placeholder="min"
-          disabled
-        />
+    </v-row>
+
+    <v-row>
+      <v-col align="center">
+          {{ currentAgendaTitle }}
       </v-col>
     </v-row>
 
@@ -152,13 +144,19 @@ const addMeeting = () => {
 
 let currentAgenda
 let intervalPointer   // reference to the current agenda point
-const intervalPointerId = ref(0)
+let currentTime = -1  // current rest time in seconds
+const intervalPointerId = ref(-1)   // ref to the current active agenda point
 const timeState = ref(0)  // 0: off; 1: running 2: paused
+const currentAgendaTitle = ref('-')
+const currentAgendaTime = ref('00:00')
+const currentAgendaTimePercentage = ref(-1)
 
 const play = () => {
   if (timeState.value === 0) {
     intervalPointerId.value = 0
     currentAgenda = mRef.value.agenda[intervalPointerId.value]
+    currentAgendaTitle.value = currentAgenda.title
+    currentTime = currentAgenda.time * 60
     resetAllTimers()
     currentAgenda.isActive = true
     startTimer()
@@ -173,6 +171,7 @@ const stop = () => {
   stopTimer()
   resetAllTimers()
   timeState.value = 0
+  currentAgendaTitle.value = '-'
 }
 
 const pause = () => {
@@ -185,13 +184,15 @@ const pause = () => {
 const startTimer = () => {
   if (!intervalPointer) {
     intervalPointer = setInterval(() => {
-      currentAgenda.ctime = currentAgenda.ctime + 1
-      if (currentAgenda.ctime >= currentAgenda.time) {
+      currentTime--
+      if (currentTime <= 0) {
         // move to next agenda entry
         intervalPointerId.value = intervalPointerId.value + 1
         if (mRef.value.agenda.length > intervalPointerId.value) {
           currentAgenda.isActive = false
           currentAgenda = mRef.value.agenda[intervalPointerId.value]
+          currentAgendaTitle.value = currentAgenda.title
+          currentTime = currentAgenda.time * 60
           currentAgenda.isActive = true
         }
         else {
@@ -200,6 +201,7 @@ const startTimer = () => {
           stop()
         }
       }
+      setCurrentAgendaTime()
     }, 1000)
   }
 }
@@ -212,8 +214,16 @@ const stopTimer = () => {
 
 const resetAllTimers = () => {
   for (let agenda of mRef.value.agenda) {
-    agenda.ctime = 0
     agenda.isActive = false
   }
+}
+
+const setCurrentAgendaTime = () => {
+  let hours = Math.floor(currentTime / 3600);
+  let minutes = Math.floor((currentTime-(hours*60*60)) / 60);
+  let seconds = currentTime - (minutes * 60) - (hours*60*60)
+  currentAgendaTime.value = (hours>0?hours +':' : '') + (minutes<10?'0'+minutes:minutes) + ':' + (seconds<10?'0'+seconds:seconds)
+  let time = ((currentAgenda.time*60)-currentTime)/(currentAgenda.time*60)*100
+  currentAgendaTimePercentage.value = time
 }
 </script>
