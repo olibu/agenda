@@ -172,6 +172,8 @@ const stop = () => {
   resetAllTimers()
   timeState.value = 0
   currentAgendaTitle.value = '-'
+  currentAgendaTime.value = '00:00'
+  currentAgendaTimePercentage.value = 0
 }
 
 const pause = () => {
