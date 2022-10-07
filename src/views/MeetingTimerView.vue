@@ -32,13 +32,14 @@
         cols="12"
         class="ma-2 pa-2"
       >
-        <!-- <v-btn 
+        <v-btn 
+          @click="previous"
           icon="mdi-skip-previous"
           size="small"
           variant="outlined"
           class="mr-2"
           :disabled="timeState===0 || intervalPointerId===0"
-        /> -->
+        />
         <v-btn 
           icon="mdi-play"
           size="small"
@@ -63,12 +64,13 @@
           class="mr-2"
           :disabled="timeState==0"
         />
-        <!-- <v-btn 
+        <v-btn 
+          @click="next"
           icon="mdi-skip-next"
           size="small"
           variant="outlined"
           :disabled="timeState===0 || (intervalPointerId+3)>meeting.agenda.length"
-        /> -->
+        />
       </v-col>
     </v-row>
 
@@ -80,27 +82,22 @@
 
     <v-list
       class="ma-0 pa-0 bg-blue-grey-darken-3"
-      v-for="agenda in mRef.agenda"
-      :value="agenda"
     >
-      <AgendaEntry
-        :agenda="agenda"
-        @create="createAgenda"
-        @delete="deleteAgenda"
-        @timechange="timeChanged"
-      />
+      <draggable
+          v-model="mRef.agenda"
+          handle=".handle"
+          item-key="id"
+        >
+        <template #item="{ element }">
+        <AgendaEntry
+          :agenda="element"
+          @create="createAgenda"
+          @delete="deleteAgenda"
+          @timechange="timeChanged"
+        />
+        </template>
+      </draggable>
     </v-list>
-
-    <v-row
-      v-if="id==-1"
-      class="ma-1"
-    >
-      <v-col align="right">
-        <v-btn
-          @click="addMeeting"          
-        >Add</v-btn>
-      </v-col>
-    </v-row>
   </v-card>
 </template>
 
@@ -109,6 +106,8 @@ import { ref } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
+import draggable from "vuedraggable"
+
 const store = useMeetingStore()
 
 const route = useRoute()
@@ -136,11 +135,6 @@ const timeChanged = (time) => {
 }
 
 const router = useRouter()
-
-const addMeeting = () => {
-  store.addMeeting(meeting)
-  router.push(`/meeting/${meeting.id}`)
-}
 
 let currentAgenda
 let intervalPointer   // reference to the current agenda point
@@ -183,27 +177,48 @@ const pause = () => {
   }
 }
 
+const previous = () => {
+  intervalPointerId.value = intervalPointerId.value - 1
+  if (intervalPointerId.value >= 0) {
+    currentAgenda.isActive = false
+    currentAgenda = mRef.value.agenda[intervalPointerId.value]
+    currentAgendaTitle.value = currentAgenda.title
+    currentTime = currentAgenda.time * 60
+    currentAgenda.isActive = true
+  }
+  else {
+    currentAgenda.isActive = false
+    stop()
+  }
+  setCurrentAgendaTime()
+}
+
+const next = () => {
+  intervalPointerId.value = intervalPointerId.value + 1
+  if (mRef.value.agenda.length > intervalPointerId.value) {
+    currentAgenda.isActive = false
+    currentAgenda = mRef.value.agenda[intervalPointerId.value]
+    currentAgendaTitle.value = currentAgenda.title
+    currentTime = currentAgenda.time * 60
+    currentAgenda.isActive = true
+  }
+  else {
+    currentAgenda.isActive = false
+    alert('ende');
+    stop()
+  }
+}
+
 const startTimer = () => {
   if (!intervalPointer) {
     intervalPointer = setInterval(() => {
       currentTime--
       if (currentTime <= 0) {
         // move to next agenda entry
-        intervalPointerId.value = intervalPointerId.value + 1
-        if (mRef.value.agenda.length > intervalPointerId.value) {
-          currentAgenda.isActive = false
-          currentAgenda = mRef.value.agenda[intervalPointerId.value]
-          currentAgendaTitle.value = currentAgenda.title
-          currentTime = currentAgenda.time * 60
-          currentAgenda.isActive = true
-        }
-        else {
-          currentAgenda.isActive = false
-          alert('ende');
-          stop()
-        }
+        next()
       }
       setCurrentAgendaTime()
+
     }, 1000)
   }
 }

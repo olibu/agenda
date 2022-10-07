@@ -5,7 +5,7 @@
     v-bind:class="interactiveBgColor()"
   >
   <v-col
-    cols="9"
+    cols="8"
     class="pl-1 pt-1 pb-1 pr-0"
   >
     <v-text-field
@@ -33,38 +33,30 @@
     cols="1"
     class="pt-1 pb-1"
   >
-  <v-menu
-      open-on-hover
-      location="start"
-      v-if="inactive"
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          v-bind="props"
-          icon="mdi-dots-vertical"
-          density="compact"
-          variant="text"
-        />
-      </template>
-
-      <v-list
-      class="pt-0 pb-0"
-      >
-        <v-list-item-action
-          class="pt-0 pb-0"
-        >
-        <v-btn
-          @click="deleteAgendaEntry"
-        >delete</v-btn>
-        </v-list-item-action>
-      </v-list>
-    </v-menu>
+    <v-btn
+      @click="deleteAgendaEntry"
+      icon="mdi-delete"
+      density="compact"
+      variant="text"
+    />
+  </v-col>
+  <v-col
+    cols="1"
+    class="pt-1 pb-1"
+  >
+    <v-btn
+      icon="mdi-drag-horizontal-variant"
+      density="compact"
+      variant="text"
+      class="handle"
+    />
   </v-col>
   </v-row>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
+
 const props = defineProps(['agenda'])
 
 const emit = defineEmits(['create', 'delete', 'timechange'])

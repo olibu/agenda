@@ -42,15 +42,21 @@
 
     <v-list
       class="ma-0 pa-0 bg-blue-grey-darken-3"
-      v-for="agenda in mRef.agenda"
-      :value="agenda"
     >
-      <AgendaEntry
-        :agenda="agenda"
-        @create="createAgenda"
-        @delete="deleteAgenda"
-        @timechange="timeChanged"
-      />
+      <draggable
+          v-model="mRef.agenda"
+          handle=".handle"
+          item-key="id"
+        >
+        <template #item="{ element }">
+        <AgendaEntry
+          :agenda="element"
+          @create="createAgenda"
+          @delete="deleteAgenda"
+          @timechange="timeChanged"
+        />
+        </template>
+      </draggable>
     </v-list>
 
     <v-row
@@ -75,6 +81,8 @@ import { ref, watch } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
+import draggable from "vuedraggable"
+
 const store = useMeetingStore()
 
 const route = useRoute()
