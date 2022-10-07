@@ -51,6 +51,16 @@ More details can be found in the [development section](DEVELOPMENT.md).
 
 ## Release Notes
 
+### V0.3.0
+
+* Bottom navigation
+* Separated edit and timer view
+* Automatic save of changed removed
+* Progress moved to Meeting view instead of each agenda
+* Dragable agenda entries
+* Navigation (previous/next)
+* Agenda time in minutes and seconds
+
 ### V0.2.0
 
 * Timer added
@@ -67,6 +77,19 @@ Initial version with the following basic features
 * List of meetings with delete functionallity
 * Create new meetings
 * Application can be used offline
+
+## Next Features
+
+* Add sound effects
+* Fix: correct order of next agenda entry after draging of entries
+* Option to deactivate automatice switch to next agenda entry
+* Remove difference between last full hour/quater and current time from first agenda entry
+* Automatic meeting duration adjustment (reduce time of following agenda entries in case of overtimes)
+* Show overall meeting progress additionally
+* Add additional time to active agenda entry via button
+* Reduce time of active agenda entry via button
+* Add agenda entry via button instead of automatic adding
+* Wider layout for larger screens
 
 ## License
 
