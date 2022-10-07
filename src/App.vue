@@ -1,36 +1,28 @@
 <template>
   <v-app>
-    <v-navigation-drawer 
+    <v-bottom-navigation 
       permanent
       rail
     >
-      <v-list
-        class="pa-0"
-        nav
-      >
-        <v-list-item
-          class="pl-4 ma-0"
-          prepend-icon="mdi-calendar"
-          title="Meetings"
-          value="meetings"
+        <v-btn
           to="/"
-        />
-        <v-list-item
-          class="pl-4 ma-0"
-          prepend-icon="mdi-plus"
-          title="Add meeting"
-          value="new-meeting"
+        >
+          <v-icon>mdi-calendar</v-icon>
+          <span>Meetings</span>
+        </v-btn>
+        <v-btn
           to="/meeting/-1"
-        />
-        <v-list-item
-          class="pl-4 ma-0"
-          prepend-icon="mdi-information"
-          title="About"
-          value="about"
+        >
+          <v-icon>mdi-plus</v-icon>
+          <span>New</span>
+        </v-btn>
+        <v-btn
           to="/about"
-        />
-      </v-list>
-    </v-navigation-drawer>
+        >
+          <v-icon>mdi-information</v-icon>
+          <span>About</span>
+        </v-btn>
+    </v-bottom-navigation>
 
     <v-main>
       <RouterView />

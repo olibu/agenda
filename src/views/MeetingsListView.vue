@@ -21,6 +21,13 @@
         <template v-slot:append>
           <v-btn
             color="grey-lighten-1"
+            icon="mdi-pencil"
+            variant="text"
+            density="compact"
+            @click="editMeeting(meeting.id)"
+          ></v-btn>
+          <v-btn
+            color="grey-lighten-1"
             icon="mdi-delete"
             variant="text"
             density="compact"
@@ -39,10 +46,13 @@ const store = useMeetingStore()
 const router = useRouter()
 
 const openMeeting = (meetingId) => {
-  router.push(`/meeting/${meetingId}`);
+  router.push(`/timer/${meetingId}`);
 }
 
 const deleteMeeting = (meetingId) => {
   store.deleteMeeting(meetingId)
+}
+const editMeeting = (meetingId) => {
+  router.push(`/meeting/${meetingId}`);
 }
 </script>
