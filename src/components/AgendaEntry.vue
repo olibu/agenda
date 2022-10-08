@@ -1,11 +1,11 @@
 <template>
   <v-row
-    class="pa-0 ma-1 rounded-lg"
+    class="pa-0 ma-1 rounded-lg pr-2 d-flex flex-nowrap"
     align="center"
     v-bind:class="interactiveBgColor()"
   >
   <v-col
-    cols="8"
+    cols="9"
     class="pl-1 pt-1 pb-1 pr-0"
   >
     <v-text-field
@@ -31,7 +31,7 @@
   </v-col>
   <v-col
     cols="1"
-    class="pt-1 pb-1"
+    class="pt-1 pb-1 d-flex flex-nowrap"
   >
     <v-btn
       @click="deleteAgendaEntry"
@@ -39,16 +39,11 @@
       density="compact"
       variant="text"
     />
-  </v-col>
-  <v-col
-    cols="1"
-    class="pt-1 pb-1"
-  >
     <v-btn
-      icon="mdi-drag-horizontal-variant"
+      icon="mdi-drag"
       density="compact"
       variant="text"
-      class="handle"
+      class="pl-1 pr-2 handle move"
     />
   </v-col>
   </v-row>
@@ -104,5 +99,8 @@ const deleteAgendaEntry = () => {
 <style>
   .h-align {
     text-align: center;
+  }
+  .move {
+    cursor: move;
   }
 </style>
