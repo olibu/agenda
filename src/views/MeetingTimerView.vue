@@ -93,6 +93,18 @@
       </draggable>
     </v-list>
   </v-card>
+  <v-dialog
+      v-model="showDialog"
+    >
+      <v-card>
+        <v-card-text>
+          End of the meeting
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" block @click="showDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <script setup>
@@ -203,7 +215,7 @@ const next = (auto) => {
     if (auto) {
       playMeetingEnd()
     }
-    alert('ende')
+    showDialog.value = true
     stop()
   }
 }
@@ -253,4 +265,5 @@ const playMeetingEnd = () => {
   audioMeetingEnd.play()
 }
 
+const showDialog = ref(false)
 </script>
