@@ -65,7 +65,7 @@
           :disabled="timeState==0"
         />
         <v-btn 
-          @click="next"
+          @click="next(false)"
           icon="mdi-skip-next"
           size="small"
           variant="outlined"
@@ -112,7 +112,6 @@ const store = useMeetingStore()
 
 const route = useRoute()
 let id = (route.params && route.params.id) ? route.params.id : -1
-console.log('id',id);
 const meeting = store.getMeeting(id)
 
 const mRef = ref(meeting)
@@ -193,18 +192,24 @@ const previous = () => {
   setCurrentAgendaTime()
 }
 
-const next = () => {
+const next = (auto) => {
   intervalPointerId.value = intervalPointerId.value + 1
-  if (mRef.value.agenda.length > intervalPointerId.value) {
+  if (mRef.value.agenda.length > (intervalPointerId.value + 1)) {
     currentAgenda.isActive = false
     currentAgenda = mRef.value.agenda[intervalPointerId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
     currentAgenda.isActive = true
+    if (auto) {
+      playAgendaEnd()
+    }
   }
   else {
     currentAgenda.isActive = false
-    alert('ende');
+    if (auto) {
+      playMeetingEnd()
+    }
+    alert('ende')
     stop()
   }
 }
@@ -215,7 +220,7 @@ const startTimer = () => {
       currentTime--
       if (currentTime <= 0) {
         // move to next agenda entry
-        next()
+        next(true)
       }
       setCurrentAgendaTime()
 
@@ -243,4 +248,15 @@ const setCurrentAgendaTime = () => {
   let time = ((currentAgenda.time*60)-currentTime)/(currentAgenda.time*60)*100
   currentAgendaTimePercentage.value = time
 }
+
+const audioAgendaEnd = new Audio('Ding-sound-effect.mp3')
+const audioMeetingEnd = new Audio('bell-melodic-sound-effect.mp3')
+
+const playAgendaEnd = () => {
+  audioAgendaEnd.play()
+}
+const playMeetingEnd = () => {
+  audioMeetingEnd.play()
+}
+
 </script>
