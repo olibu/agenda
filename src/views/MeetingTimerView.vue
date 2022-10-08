@@ -74,12 +74,6 @@
       </v-col>
     </v-row>
 
-    <p
-      class="ma-2"
-    >
-      Agenda:
-    </p>
-
     <v-list
       class="ma-0 pa-0 bg-blue-grey-darken-3"
     >
