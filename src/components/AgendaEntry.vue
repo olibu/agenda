@@ -35,11 +35,13 @@
   >
     <v-btn
       @click="deleteAgendaEntry"
+      tabindex="-1"
       icon="mdi-delete"
       density="compact"
       variant="text"
     />
     <v-btn
+      tabindex="-1"
       icon="mdi-drag"
       density="compact"
       variant="text"
