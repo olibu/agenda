@@ -22,7 +22,7 @@
 
     <v-row>
       <v-col align="center">
-          {{ currentAgendaTitle }}
+          <b>{{ currentAgendaTitle }}</b>
       </v-col>
     </v-row>
 
