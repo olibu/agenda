@@ -1,6 +1,6 @@
 <template>
   <v-row
-    class="pa-0 ma-1 rounded-lg pr-2 d-flex flex-nowrap"
+    class="pa-0 ma-1 rounded-lg pr-2 pt-1 pb-1 d-flex flex-nowrap"
     align="center"
     v-bind:class="interactiveBgColor()"
   >
