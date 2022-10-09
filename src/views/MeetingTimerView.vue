@@ -336,8 +336,8 @@ const setCurrentAgendaTime = () => {
   }
 }
 
-const audioAgendaEnd = new Audio('Ding-sound-effect.mp3')
-const audioMeetingEnd = new Audio('bell-melodic-sound-effect.mp3')
+const audioAgendaEnd = new Audio('/agenda/Ding-sound-effect.mp3')
+const audioMeetingEnd = new Audio('/agenda/bell-melodic-sound-effect.mp3')
 
 const playAgendaEnd = () => {
   if (store.soundOn) {

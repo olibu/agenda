@@ -81,6 +81,10 @@ More details can be found in the [development section](DEVELOPMENT.md).
 
 ## Release Notes
 
+### V0.3.1
+
+* Sound file paths fixed for distribution
+
 ### V0.3.0
 
 * Bottom navigation
