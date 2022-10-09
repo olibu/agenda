@@ -91,7 +91,7 @@
           size="small"
           variant="outlined"
           class="mr-2"
-          :disabled="timeState===0 || intervalPointerId===0"
+          :disabled="timeState===0 || currentAgendaId===0"
         />
         <v-btn 
           icon="mdi-play"
@@ -122,7 +122,7 @@
           icon="mdi-skip-next"
           size="small"
           variant="outlined"
-          :disabled="timeState===0 || (intervalPointerId+3)>meeting.agenda.length"
+          :disabled="timeState===0 || (currentAgendaId+3)>meeting.agenda.length"
         />
       </v-col>
     </v-row>
@@ -195,10 +195,10 @@ const timeChanged = (time) => {
 const router = useRouter()
 
 let currentAgenda
-let intervalPointer   // reference to the current agenda point
+let intervalPointer   // reference to the current setInterval method
 let currentTime = -1  // current rest time in seconds
-const intervalPointerId = ref(-1)   // ref to the current active agenda point
 const timeState = ref(0)  // 0: off; 1: running 2: paused
+const currentAgendaId = ref(-1)   // ref to the current active agenda point
 const currentAgendaTitle = ref('-')
 const currentAgendaTime = ref('00:00')
 const currentAgendaTimePercentage = ref(0)
@@ -206,8 +206,8 @@ const currentAgendaTimeColor = ref('teal')
 
 const play = () => {
   if (timeState.value === 0) {
-    intervalPointerId.value = 0
-    currentAgenda = mRef.value.agenda[intervalPointerId.value]
+    currentAgendaId.value = 0
+    currentAgenda = mRef.value.agenda[currentAgendaId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
     if (store.adjustStartTime) {
@@ -222,7 +222,6 @@ const play = () => {
         currentTime = currentTime - adjustment
       }
     }
-    resetAllTimers()
     currentAgenda.isActive = true
     startTimer()
   }
@@ -234,7 +233,6 @@ const play = () => {
 
 const stop = () => {
   stopTimer()
-  resetAllTimers()
   timeState.value = 0
   currentAgendaTitle.value = '-'
   currentAgendaTime.value = '00:00'
@@ -250,10 +248,10 @@ const pause = () => {
 }
 
 const previous = () => {
-  intervalPointerId.value = intervalPointerId.value - 1
-  if (intervalPointerId.value >= 0) {
+  currentAgendaId.value = currentAgendaId.value - 1
+  if (currentAgendaId.value >= 0) {
     currentAgenda.isActive = false
-    currentAgenda = mRef.value.agenda[intervalPointerId.value]
+    currentAgenda = mRef.value.agenda[currentAgendaId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
     currentAgenda.isActive = true
@@ -262,14 +260,13 @@ const previous = () => {
     currentAgenda.isActive = false
     stop()
   }
-  setCurrentAgendaTime()
 }
 
 const next = (auto) => {
-  intervalPointerId.value = intervalPointerId.value + 1
-  if (mRef.value.agenda.length > (intervalPointerId.value + 1)) {
+  currentAgendaId.value = currentAgendaId.value + 1
+  if (mRef.value.agenda.length > (currentAgendaId.value + 1)) {
     currentAgenda.isActive = false
-    currentAgenda = mRef.value.agenda[intervalPointerId.value]
+    currentAgenda = mRef.value.agenda[currentAgendaId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
     currentAgenda.isActive = true
@@ -309,35 +306,31 @@ const stopTimer = () => {
   }
 }
 
-const resetAllTimers = () => {
-  for (let agenda of mRef.value.agenda) {
-    agenda.isActive = false
-  }
-}
-
 const setCurrentAgendaTime = () => {
-  let localTime = currentTime
-  let negativ = currentTime < 0
-  if (negativ) {
-    localTime = currentTime * -1
-  }
-  let hours = Math.floor(localTime / 3600)
-  let minutes = Math.floor((localTime-(hours*60*60)) / 60)
-  let seconds = localTime - (minutes * 60) - (hours*60*60)
-  currentAgendaTime.value = (negativ?'-':'') + (hours>0?hours +':' : '') + (minutes<10?'0'+minutes:minutes) + ':' + (seconds<10?'0'+seconds:seconds)
-  let time = 100
-  if (!negativ) {
-    time = ((currentAgenda.time*60)-localTime)/(currentAgenda.time*60)*100
-  }
-  currentAgendaTimePercentage.value = time
-  if (time == 100) {
-    currentAgendaTimeColor.value = 'red'
-  }
-  else if (time > 90) {
-    currentAgendaTimeColor.value = 'orange'
-  }
-  else {
-    currentAgendaTimeColor.value = 'teal'
+  if (timeState.value===1) {
+    let localTime = currentTime
+    let negativ = currentTime < 0
+    if (negativ) {
+      localTime = currentTime * -1
+    }
+    let hours = Math.floor(localTime / 3600)
+    let minutes = Math.floor((localTime-(hours*60*60)) / 60)
+    let seconds = localTime - (minutes * 60) - (hours*60*60)
+    currentAgendaTime.value = (negativ?'-':'') + (hours>0?hours +':' : '') + (minutes<10?'0'+minutes:minutes) + ':' + (seconds<10?'0'+seconds:seconds)
+    let time = 100
+    if (!negativ) {
+      time = ((currentAgenda.time*60)-localTime)/(currentAgenda.time*60)*100
+    }
+    currentAgendaTimePercentage.value = time
+    if (time == 100) {
+      currentAgendaTimeColor.value = 'red'
+    }
+    else if (time > 90) {
+      currentAgendaTimeColor.value = 'orange'
+    }
+    else {
+      currentAgendaTimeColor.value = 'teal'
+    }
   }
 }
 
@@ -356,4 +349,5 @@ const playMeetingEnd = () => {
 }
 
 const showDialog = ref(false)
+
 </script>
