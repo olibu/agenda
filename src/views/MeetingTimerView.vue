@@ -60,6 +60,16 @@
             hide-details
           />
         </v-list-item>
+        <v-list-item
+          class="ma-0 pa-0"
+        >
+          <v-checkbox
+            class="ma-0 pa-0 pr-2"
+            v-model="store.adjustStartTime"
+            label="Adjust start time"
+            hide-details
+          />
+        </v-list-item>
       </v-list>
     </v-menu>
 
@@ -200,6 +210,18 @@ const play = () => {
     currentAgenda = mRef.value.agenda[intervalPointerId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
+    if (store.adjustStartTime) {
+      // check for the last "even" time and adjust the currentTime accordingly
+      let currentMinutes = new Date().getMinutes()
+      let currentSeconds = new Date().getSeconds()
+      let adjustment = (currentMinutes * 60) + currentSeconds
+      if (currentMinutes > 30) {
+        adjustment -= (30 * 60)
+      }
+      if (currentTime> adjustment) {
+        currentTime = currentTime - adjustment
+      }
+    }
     resetAllTimers()
     currentAgenda.isActive = true
     startTimer()
