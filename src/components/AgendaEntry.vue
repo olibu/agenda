@@ -1,12 +1,8 @@
 <template>
   <v-row
-    class="pa-0 ma-1 rounded-lg pr-2 pt-1 pb-1 d-flex flex-nowrap"
+    class="pa-2 ma-1 rounded-lg d-flex flex-nowrap"
     align="center"
     v-bind:class="interactiveBgColor()"
-  >
-  <v-col
-    cols="9"
-    class="pl-1 pt-1 pb-1 pr-0"
   >
     <v-text-field
       label="title"
@@ -14,12 +10,8 @@
       variant="outlined"
       hide-details="auto"
       v-model="agenda.title"
+      class="pr-1"
     />
-  </v-col>
-  <v-col
-    cols="2"
-    class="pl-1 pt-1 pb-1 pr-0"
-  >
     <v-text-field
       label="min"
       density="compact"
@@ -27,12 +19,8 @@
       hide-details="auto"
       v-model="agenda.time"
       type="number"
+      class="w80px"
     />
-  </v-col>
-  <v-col
-    cols="1"
-    class="pt-1 pb-1 d-flex flex-nowrap"
-  >
     <v-btn
       @click="deleteAgendaEntry"
       tabindex="-1"
@@ -45,9 +33,8 @@
       icon="mdi-drag"
       density="compact"
       variant="text"
-      class="pl-1 pr-2 handle move"
+      class="handle move"
     />
-  </v-col>
   </v-row>
 </template>
 
@@ -104,5 +91,8 @@ const deleteAgendaEntry = () => {
   }
   .move {
     cursor: move;
+  }
+  .w80px {
+    max-width: 80px;
   }
 </style>
