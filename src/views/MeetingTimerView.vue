@@ -233,6 +233,7 @@ const play = () => {
 }
 
 const stop = () => {
+  currentAgenda.isActive = false
   stopTimer()
   timeState.value = 0
   currentAgendaTitle.value = '-'
