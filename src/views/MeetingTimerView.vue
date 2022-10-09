@@ -134,6 +134,7 @@
           v-model="mRef.agenda"
           handle=".handle"
           item-key="id"
+          @change="adjustCurrentPositionAfterDragEvent"
         >
         <template #item="{ element }">
         <AgendaEntry
@@ -350,4 +351,22 @@ const playMeetingEnd = () => {
 
 const showDialog = ref(false)
 
+const adjustCurrentPositionAfterDragEvent = (e) => {
+  if (currentAgendaId.value!=-1) {
+    if (e.moved.oldIndex > currentAgendaId.value && e.moved.newIndex <= currentAgendaId.value ) {
+      currentAgendaId.value += 1 
+    }
+    else if (e.moved.oldIndex < currentAgendaId.value && e.moved.newIndex >= currentAgendaId.value ) {
+      currentAgendaId.value -= 1 
+    }
+    else if (e.moved.oldIndex === currentAgendaId.value) {
+      if (e.moved.newIndex < e.moved.oldIndex) {
+        currentAgendaId.value -= (e.moved.oldIndex - e.moved.newIndex)
+      }
+      else if (e.moved.newIndex > e.moved.oldIndex) {
+        currentAgendaId.value += (e.moved.newIndex - e.moved.oldIndex) 
+      }
+    }
+  }
+}
 </script>
