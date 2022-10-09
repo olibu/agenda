@@ -9,5 +9,8 @@
       Agenda is a browser based standalone tool to track the time table of meetings.
     </v-card-text>
     <v-card-text>Version 0.3.0</v-card-text>
+    <v-card-text>
+      Further details can be found on <a href="https://github.com/olibu/agenda" target="_blank">Github</a>
+    </v-card-text>
   </v-card>
 </template>
