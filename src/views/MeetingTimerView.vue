@@ -5,13 +5,15 @@
     <v-card-title align="center">{{mRef.title}}</v-card-title>
 
     <v-row>
-      <v-col align="center">
+      <v-col 
+        align="center"
+      >
         <v-progress-circular
           :rotate="360"
           :size="100"
           :width="10"
           :model-value="currentAgendaTimePercentage"
-          color="teal"
+          :color="currentAgendaTimeColor"
           class="text-h6"
         >
           <b>{{ currentAgendaTime }}</b>
@@ -19,6 +21,47 @@
 
       </v-col>
     </v-row>
+
+    <v-menu
+      open-on-hover
+      location="start"
+      class="ma-0 pa-0"
+    >
+      <template v-slot:activator="{ props }">
+        <v-btn
+          v-bind="props"
+          icon="mdi-cog"
+          density="compact"
+          variant="text"
+          style="position: absolute; top: 10px; left:10px"
+        />
+      </template>
+
+      <v-list
+        class="ma-0 pa-0"
+      >
+        <v-list-item
+          class="ma-0 pa-0"
+        >
+          <v-checkbox
+            class="ma-0 pa-0"
+            v-model="store.soundOn"
+            label="Sound on"
+            hide-details
+          />
+        </v-list-item>
+        <v-list-item
+          class="ma-0 pa-0"
+        >
+          <v-checkbox
+            class="ma-0 pa-0 pr-2"
+            v-model="store.autoOn"
+            label="Automatic move to next agenda entry"
+            hide-details
+          />
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
     <v-row>
       <v-col align="center">
@@ -148,7 +191,8 @@ const intervalPointerId = ref(-1)   // ref to the current active agenda point
 const timeState = ref(0)  // 0: off; 1: running 2: paused
 const currentAgendaTitle = ref('-')
 const currentAgendaTime = ref('00:00')
-const currentAgendaTimePercentage = ref(-1)
+const currentAgendaTimePercentage = ref(0)
+const currentAgendaTimeColor = ref('teal')
 
 const play = () => {
   if (timeState.value === 0) {
@@ -173,6 +217,7 @@ const stop = () => {
   currentAgendaTitle.value = '-'
   currentAgendaTime.value = '00:00'
   currentAgendaTimePercentage.value = 0
+  currentAgendaTimeColor.value = 'teal'
 }
 
 const pause = () => {
@@ -226,7 +271,9 @@ const startTimer = () => {
       currentTime--
       if (currentTime <= 0) {
         // move to next agenda entry
-        next(true)
+        if (store.autoOn) {
+          next(true)
+        }
       }
       setCurrentAgendaTime()
 
@@ -247,22 +294,43 @@ const resetAllTimers = () => {
 }
 
 const setCurrentAgendaTime = () => {
-  let hours = Math.floor(currentTime / 3600);
-  let minutes = Math.floor((currentTime-(hours*60*60)) / 60);
-  let seconds = currentTime - (minutes * 60) - (hours*60*60)
-  currentAgendaTime.value = (hours>0?hours +':' : '') + (minutes<10?'0'+minutes:minutes) + ':' + (seconds<10?'0'+seconds:seconds)
-  let time = ((currentAgenda.time*60)-currentTime)/(currentAgenda.time*60)*100
+  let localTime = currentTime
+  let negativ = currentTime < 0
+  if (negativ) {
+    localTime = currentTime * -1
+  }
+  let hours = Math.floor(localTime / 3600)
+  let minutes = Math.floor((localTime-(hours*60*60)) / 60)
+  let seconds = localTime - (minutes * 60) - (hours*60*60)
+  currentAgendaTime.value = (negativ?'-':'') + (hours>0?hours +':' : '') + (minutes<10?'0'+minutes:minutes) + ':' + (seconds<10?'0'+seconds:seconds)
+  let time = 100
+  if (!negativ) {
+    time = ((currentAgenda.time*60)-localTime)/(currentAgenda.time*60)*100
+  }
   currentAgendaTimePercentage.value = time
+  if (time == 100) {
+    currentAgendaTimeColor.value = 'red'
+  }
+  else if (time > 90) {
+    currentAgendaTimeColor.value = 'orange'
+  }
+  else {
+    currentAgendaTimeColor.value = 'teal'
+  }
 }
 
 const audioAgendaEnd = new Audio('Ding-sound-effect.mp3')
 const audioMeetingEnd = new Audio('bell-melodic-sound-effect.mp3')
 
 const playAgendaEnd = () => {
-  audioAgendaEnd.play()
+  if (store.soundOn) {
+    audioAgendaEnd.play()
+  }
 }
 const playMeetingEnd = () => {
-  audioMeetingEnd.play()
+  if (store.soundOn) {
+    audioMeetingEnd.play()
+  }
 }
 
 const showDialog = ref(false)

@@ -5,6 +5,8 @@ export const useMeetingStore = defineStore('MeetingStore', {
   state: () => {
     return {
       meetings: [],
+      soundOn: true,
+      autoOn: false,
     }
   },
   persist: true,
