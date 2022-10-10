@@ -198,6 +198,7 @@ const router = useRouter()
 let currentAgenda
 let intervalPointer   // reference to the current setInterval method
 let currentTime = -1  // current rest time in seconds
+let currentAgendaNotified = false 
 const timeState = ref(0)  // 0: off; 1: running 2: paused
 const currentAgendaId = ref(-1)   // ref to the current active agenda point
 const currentAgendaTitle = ref('-')
@@ -233,6 +234,7 @@ const play = () => {
 }
 
 const stop = () => {
+  currentAgendaNotified = false
   currentAgenda.isActive = false
   stopTimer()
   timeState.value = 0
@@ -250,6 +252,7 @@ const pause = () => {
 }
 
 const previous = () => {
+  currentAgendaNotified = false
   currentAgendaId.value = currentAgendaId.value - 1
   if (currentAgendaId.value >= 0) {
     currentAgenda.isActive = false
@@ -265,6 +268,7 @@ const previous = () => {
 }
 
 const next = (triggeredAutomatically) => {
+  currentAgendaNotified = false
   currentAgendaId.value = currentAgendaId.value + 1
   if (mRef.value.agenda.length > (currentAgendaId.value + 1)) {
     currentAgenda.isActive = false
@@ -290,7 +294,7 @@ const startTimer = () => {
   if (!intervalPointer) {
     intervalPointer = setInterval(() => {
       currentTime--
-      if (currentTime <= 0) {
+      if (currentTime <= 0 && !currentAgendaNotified) {
         // move to next agenda entry
         if (store.autoOn) {
           next(true)
@@ -298,9 +302,11 @@ const startTimer = () => {
         else {
           if (mRef.value.agenda.length > (currentAgendaId.value + 2)) {
             playAgendaEnd()
+            currentAgendaNotified = true
           }
           else {
             playMeetingEnd()
+            currentAgendaNotified = true
           }
         }
       }
