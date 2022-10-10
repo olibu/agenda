@@ -264,7 +264,7 @@ const previous = () => {
   }
 }
 
-const next = (auto) => {
+const next = (triggeredAutomatically) => {
   currentAgendaId.value = currentAgendaId.value + 1
   if (mRef.value.agenda.length > (currentAgendaId.value + 1)) {
     currentAgenda.isActive = false
@@ -272,13 +272,13 @@ const next = (auto) => {
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
     currentAgenda.isActive = true
-    if (auto) {
+    if (triggeredAutomatically) {
       playAgendaEnd()
     }
   }
   else {
     currentAgenda.isActive = false
-    if (auto) {
+    if (triggeredAutomatically) {
       playMeetingEnd()
     }
     showDialog.value = true
@@ -294,6 +294,14 @@ const startTimer = () => {
         // move to next agenda entry
         if (store.autoOn) {
           next(true)
+        }
+        else {
+          if (mRef.value.agenda.length > (currentAgendaId.value + 2)) {
+            playAgendaEnd()
+          }
+          else {
+            playMeetingEnd()
+          }
         }
       }
       setCurrentAgendaTime()
