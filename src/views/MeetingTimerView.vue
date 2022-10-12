@@ -177,7 +177,7 @@ const meeting = store.getMeeting(id)
 const mRef = ref(meeting)
 
 const createAgenda = () => {
-  mRef.value.agenda.push({title: '', time: 0, ctime: 0})
+  mRef.value.agenda.push({title: '', time: 0})
 
 }
 const deleteAgenda = (agenda) => {

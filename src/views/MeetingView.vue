@@ -29,7 +29,6 @@
           v-model="mRef.time"
           density="compact"
           placeholder="min"
-          disabled
         />
       </v-col>
     </v-row>
@@ -94,7 +93,7 @@ watch(() => route.params.id, (newValue, oldValue) => {
 })
 
 const createAgenda = () => {
-  mRef.value.agenda.push({title: '', time: 0, ctime: 0})
+  mRef.value.agenda.push({title: '', time: 0})
 
 }
 const deleteAgenda = (agenda) => {
