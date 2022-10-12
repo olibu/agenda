@@ -21,7 +21,6 @@ export const useMeetingStore = defineStore('MeetingStore', {
           {
             title: '',
             time: 10,
-            ctime: 0,
           },
         ],
       }
@@ -38,7 +37,6 @@ export const useMeetingStore = defineStore('MeetingStore', {
             {
               title: '',
               time: 0,
-              ctime: 0,
             },
           ],
         }
