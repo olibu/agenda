@@ -122,7 +122,7 @@
           icon="mdi-skip-next"
           size="small"
           variant="outlined"
-          :disabled="timeState===0 || (currentAgendaId+3)>meeting.agenda.length"
+          :disabled="timeState===0 || (currentAgendaId+2)>meeting.agenda.length"
         />
       </v-col>
     </v-row>
@@ -139,12 +139,14 @@
         <template #item="{ element }">
         <AgendaEntry
           :agenda="element"
-          @create="createAgenda"
           @delete="deleteAgenda"
           @timechange="timeChanged"
         />
         </template>
       </draggable>
+      <AgendaEntryNew
+          @add="addAgenda"
+        />
     </v-list>
   </v-card>
   <v-dialog
@@ -164,6 +166,7 @@
 <script setup>
 import { ref } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
+import AgendaEntryNew from '@/components/AgendaEntryNew.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
 import draggable from "vuedraggable"
@@ -176,16 +179,14 @@ const meeting = store.getMeeting(id)
 
 const mRef = ref(meeting)
 
-const createAgenda = () => {
-  mRef.value.agenda.push({title: '', time: 0})
+const addAgenda = (agenda) => {
+  mRef.value.agenda.push({title: agenda.title, time: agenda.time})
 
 }
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
-  if (pos+1 < mRef.value.agenda.length) {
-    mRef.value.agenda.splice(pos, 1)
-  }
+  mRef.value.agenda.splice(pos, 1)
 }
 
 const timeChanged = (time) => {
@@ -270,7 +271,7 @@ const previous = () => {
 const next = (triggeredAutomatically) => {
   currentAgendaNotified = false
   currentAgendaId.value = currentAgendaId.value + 1
-  if (mRef.value.agenda.length > (currentAgendaId.value + 1)) {
+  if (mRef.value.agenda.length > (currentAgendaId.value)) {
     currentAgenda.isActive = false
     currentAgenda = mRef.value.agenda[currentAgendaId.value]
     currentAgendaTitle.value = currentAgenda.title
@@ -300,7 +301,7 @@ const startTimer = () => {
           next(true)
         }
         else {
-          if (mRef.value.agenda.length > (currentAgendaId.value + 2)) {
+          if (mRef.value.agenda.length > (currentAgendaId.value + 1)) {
             playAgendaEnd()
             currentAgendaNotified = true
           }

@@ -44,12 +44,14 @@
         <template #item="{ element }">
         <AgendaEntry
           :agenda="element"
-          @create="createAgenda"
           @delete="deleteAgenda"
           @timechange="timeChanged"
         />
         </template>
       </draggable>
+      <AgendaEntryNew
+          @add="addAgenda"
+        />
     </v-list>
 
     <v-row
@@ -59,11 +61,11 @@
         <v-btn
           v-if="mRef.id==-1"
           @click="addMeeting"          
-        >Add</v-btn>
+        >Add Meeting</v-btn>
         <v-btn
           v-if="mRef.id!=-1"
           @click="saveMeeting"          
-        >Save</v-btn>
+        >Save Meeting</v-btn>
       </v-col>
     </v-row>
   </v-card>
@@ -72,6 +74,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
+import AgendaEntryNew from '@/components/AgendaEntryNew.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
 import draggable from "vuedraggable"
@@ -92,16 +95,14 @@ watch(() => route.params.id, (newValue, oldValue) => {
   }
 })
 
-const createAgenda = () => {
-  mRef.value.agenda.push({title: '', time: 0})
-
+const addAgenda = (agenda) => {
+  mRef.value.agenda.push({title: agenda.title, time: agenda.time})
 }
+
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
-  if (pos+1 < mRef.value.agenda.length) {
-    mRef.value.agenda.splice(pos, 1)
-  }
+  mRef.value.agenda.splice(pos, 1)
 }
 
 const timeChanged = (time) => {

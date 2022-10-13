@@ -12,33 +12,13 @@ export const useMeetingStore = defineStore('MeetingStore', {
   },
   persist: true,
   actions: {
-    addNewMeeting() {
-      const meeting = {
-        id: uuidv4(),
-        title: '',
-        time: 60,
-        agenda: [
-          {
-            title: '',
-            time: 10,
-          },
-        ],
-      }
-      this.meetings.push(meeting)
-      return meeting.id
-    },
     getMeeting(id) {
       if (id == -1) {
         const meeting = {
           id: -1,
           title: '',
           time: 0,
-          agenda: [
-            {
-              title: '',
-              time: 0,
-            },
-          ],
+          agenda: [],
         }
         return meeting
       }

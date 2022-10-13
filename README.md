@@ -81,6 +81,10 @@ More details can be found in the [development section](DEVELOPMENT.md).
 
 ## Release Notes
 
+### V0.4.0
+
+* Add agenda entry changed (no empty entry in meeting anymore, dedicated blank entry instead)
+
 ### V0.3.2
 
 * Sound fixed in case of manual agenda entry switch

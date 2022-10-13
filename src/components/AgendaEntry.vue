@@ -39,30 +39,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 
 const props = defineProps(['agenda'])
 
-const emit = defineEmits(['create', 'delete', 'timechange'])
-
-watch(() => props.agenda.title, (newValue, oldValue) => {
-  inactive.value = true
-  if (!oldValue && newValue) {
-    emit('create')
-  }
-  else if (oldValue && !newValue) {
-    emit('delete', props.agenda)
-  }
-  if (!newValue) {
-    inactive.value = false
-  }
-})
-
-const inactive = ref(false)
-
-if (props.agenda.title) {
-  inactive.value = true
-}
+const emit = defineEmits(['delete', 'timechange'])
 
 watch(() => props.agenda.time, (newValue, oldValue) => {
   let oldTime = parseInt(oldValue)
@@ -74,8 +55,8 @@ watch(() => props.agenda.time, (newValue, oldValue) => {
 })
 
 const interactiveBgColor = () => {
-  let bgColor = inactive.value ? 'bg-purple-darken-2' : 'bg-grey-darken-3'
-  if (inactive.value && props.agenda.isActive) {
+  let bgColor = 'bg-purple-darken-2'
+  if (props.agenda && props.agenda.isActive) {
     bgColor = 'bg-pink-darken-3'
   }
   return bgColor
