@@ -15,6 +15,7 @@
   
   <template>
     <div
+      v-if="offlineReady || needRefresh"
       class="pwa-toast"
       role="alert"
     >
