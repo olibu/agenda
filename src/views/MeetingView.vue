@@ -15,8 +15,9 @@
           v-model="mRef.title"
           hide-details="auto"
           variant="outlined"
-          placeholder="Title"
+          label="Meetingtitle"
           density="compact"
+          autofocus
         />
       </v-col>
       <v-col
@@ -28,7 +29,9 @@
           variant="outlined"
           v-model="mRef.time"
           density="compact"
-          placeholder="min"
+          label="duration"
+          type="number"
+          disabled
         />
       </v-col>
     </v-row>
@@ -97,6 +100,7 @@ watch(() => route.params.id, (newValue, oldValue) => {
 
 const addAgenda = (agenda) => {
   mRef.value.agenda.push({title: agenda.title, time: agenda.time})
+  mRef.value.time = mRef.value.time + agenda.time
 }
 
 const deleteAgenda = (agenda) => {

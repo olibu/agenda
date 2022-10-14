@@ -2,7 +2,7 @@
   <v-card
     class="ma-2 pb-3 rounded-shaped bg-blue-grey-darken-3"
   >
-    <v-card-title align="center">{{mRef.title}}</v-card-title>
+    <v-card-title align="center">{{mRef.title}} - {{endTime}}</v-card-title>
 
     <v-row>
       <v-col 
@@ -181,17 +181,20 @@ const mRef = ref(meeting)
 
 const addAgenda = (agenda) => {
   mRef.value.agenda.push({title: agenda.title, time: agenda.time})
-
+  mRef.value.time = mRef.value.time + agenda.time
+  calculateEndTime()
 }
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
   mRef.value.agenda.splice(pos, 1)
+  calculateEndTime()
 }
 
 const timeChanged = (time) => {
   mRef.value.time = mRef.value.time - time.oldTime
   mRef.value.time = mRef.value.time + time.newTime
+  calculateEndTime()
 }
 
 const router = useRouter()
@@ -206,6 +209,7 @@ const currentAgendaTitle = ref('-')
 const currentAgendaTime = ref('00:00')
 const currentAgendaTimePercentage = ref(0)
 const currentAgendaTimeColor = ref('teal')
+const endTime = ref('00:00')
 
 const play = () => {
   if (timeState.value === 0) {
@@ -232,6 +236,7 @@ const play = () => {
     startTimer()
   }
   timeState.value = 1
+  calculateEndTime()
 }
 
 const stop = () => {
@@ -243,6 +248,7 @@ const stop = () => {
   currentAgendaTime.value = '00:00'
   currentAgendaTimePercentage.value = 0
   currentAgendaTimeColor.value = 'teal'
+  endTime.value = '00:00'
 }
 
 const pause = () => {
@@ -261,6 +267,7 @@ const previous = () => {
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
     currentAgenda.isActive = true
+    calculateEndTime()
   }
   else {
     currentAgenda.isActive = false
@@ -280,6 +287,7 @@ const next = (triggeredAutomatically) => {
     if (triggeredAutomatically) {
       playAgendaEnd()
     }
+    calculateEndTime()
   }
   else {
     currentAgenda.isActive = false
@@ -311,6 +319,7 @@ const startTimer = () => {
           }
         }
       }
+      calculateEndTime()
       setCurrentAgendaTime()
 
     }, 1000)
@@ -383,6 +392,24 @@ const adjustCurrentPositionAfterDragEvent = (e) => {
         currentAgendaId.value += (e.moved.newIndex - e.moved.oldIndex) 
       }
     }
+    calculateEndTime()
   }
 }
+
+const calculateEndTime = () => {
+  let currentEndTime = new Date()
+  let restOfMeeting = currentTime
+  if (currentTime<0) {
+    restOfMeeting = 0
+  }
+  for (let i=currentAgendaId.value+1; i<mRef.value.agenda.length; i++) {
+    restOfMeeting += (mRef.value.agenda[i].time * 60)
+  }
+  currentEndTime.setSeconds(currentEndTime.getSeconds() + restOfMeeting)
+
+  let hours = currentEndTime.getHours()
+  let minutes = currentEndTime.getMinutes()
+  endTime.value = (hours<10?'0'+hours:hours) + ':' + (minutes<10?'0'+minutes:minutes)
+}
+
 </script>
