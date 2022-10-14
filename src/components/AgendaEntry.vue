@@ -11,7 +11,7 @@
       hide-details="auto"
       v-model="agenda.title"
       class="pr-1"
-      :disabled="props.agenda && props.agenda.isActive"
+      :readonly="props.agenda && props.agenda.isActive"
     />
     <v-text-field
       label="min"
@@ -21,7 +21,7 @@
       v-model="agenda.time"
       type="number"
       class="w80px"
-      :disabled="props.agenda && props.agenda.isActive"
+      :readonly="props.agenda && props.agenda.isActive"
     />
     <v-btn
       @click="deleteAgendaEntry"
