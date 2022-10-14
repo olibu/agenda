@@ -4,86 +4,111 @@
 
 Agenda is a browser based standalone tool to track the time table of meetings.
 
-You can use the tool directly on [my github page](https://olibu.github.io/agenda).
+You can use the tool directly from [my github page](https://olibu.github.io/agenda).
 
-You might ask why there is another tool to this. And you are right.
-I really love the [Online Timer App](https://webuhr.de/timer/). I use it very often for standup meetings.
+If you want to use the app without internet connection you can install it from your browser. In Chome you will see an "Install Agenda" button in the addressbar. On iOS you can simply add the page to your home screen. For more details search for "PWA installation" in the internet. 
+
+You will be informed in case of new releases published to my github page.
+
+You might ask why there is another tool like this. And you are right. There are already a lot of tools with this functionallity.
+
+I really love the [Online Timer App](https://webuhr.de/timer/). I used it very often for standup meetings.
 For more complex meetings I like the [Timebocks App](https://timeblocks.co/). Timeblocks is a closed source free to use for non-commercial. This makes it somehow unattractive for me. It looks great but it seems to get commercial somewhen.
 
-## Technologic Details
+## Technology Details
 
-As not everyone is interested in technologic details I will provide them [here](DEVELOPMENT.md).
+As not everyone is interested in technology I will provide them [here](DEVELOPMENT.md).
 
 ## User Guide
 
 The tool is mentioned the be intuitive. Thus there is no need to provide a user guide ;)
 
-Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry.
+Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
 
 The meeting agendas will be stored in your browser only. There is no cloud used. Only the page is provided through a cloud service as static files.
-
-As already mentioned, there are many tools already providing this kind of functionallity.
 
 ### Features
 
 #### Automatic move to next agenda entry
 
 If this option is selected (via the settings icon in the top left corner of a meeting), the next agenda entry
-will be automatiacally be selected after the time has been expired.
+will be automatiacally selected after the time of an entry has been expired.
 
 If this option is deselected, you have to switch to the next agenda entry via the next button. As long as you
-do not switch to the next one, the counter will still be decreased.
+do not switch to the next one, the counter will still be decreased. The end time of the meeting will change, too.
 
 #### Adjust start time
 
 This option will adjust the first agenda entry based on the current time.
 
-In case you plan a meeting for 1 hour with 2 agenda entries of 30 min and you start the meeting at 9:05,
-the scheduling will not switch at 9:30 to the next agenda entry and you will have a 5 min overtime.
+Here is a simple example:
+* Topic 1: 30 min
+* Topic 2: 30 min
 
-This option shall fix this issue. The first agenda entry will be reduced by 5 min in this case.
+In case you start the meeting at 09:05, the time of Topic 1 will automatically be adjusted by 5 minutes.
+Thus the Topic 2 will start at 09:30.
 
 The adjustment will only be done according to the duration of the first agenda entry.
 
-In case your first agenda entry if 5 min and you start the meeting at 9:06, nothing will be adjusted, as no "even" time within the last 5 min can be found. You would have the raise the duration to 10 min before starting the meeting in 
+In case your first agenda entry is 5 min and you start the meeting at 9:06, nothing will be adjusted, as no "even" time within the last 5 min can be found. You would have the raise the duration to 10 min before starting the meeting in 
 this case.
 
-"Even" times means quater steps. 9:00, 9:30 and so on. Thus it would make sense to eather start the meeting in time
+"Even" times means 30 min steps. 9:00, 9:30 and so on. Thus it would make sense to eather start the meeting in time
 or to start you meeting with a "welcome" of 5 to 10 min (especially if you have very short agenda entries). 
 
+### Meeting End Time
+
+The time when the meeting will end is added to the title of the meeting.
+
+The rest of time of the current agenda entry and the rest of all not already
+finished agenda entries are added to the current time.
+
+The end time of the meeting will be adjusted in case of
+* drag&drop of agenda entries
+* modifications of the duration of not already finished agenda entries
+* adding of new agenda entries
+* deletion of not already finished agenda entries
 
 ### Planned Features
-
-I plan the following details which hopefully make this tool unique and helpfull.
 
 #### Dynamic Timetable
 
 I often have the issue that there is no time left at the end of the meeting for the last agenda point.
-The dynamic timetable might help here. 
+The dynamic timetable might help here to have a more fair meeting. 
 
-Example of an agenda an 1 hour meeting:
+Example of an agenda for an 1 hour meeting:
 * Topic 1: 30 min
 * Topic 2: 15 min
 * Topic 3: 15 min
 
-Expect the the first Topic requires 10 min more time to be discussed. This typical has the impact for the last topic to only be 5 min. As the second topic has been planed for 15 min. In case the second topic even takes more time there is no time left for the last topic.
+Expect the first topic requires 10 min more time to be discussed. This typical has the impact for the last topic to only be 5 min. As the second topic has been planed for 15 min. In case the second topic even takes more time there is no time left for the last topic.
 
-However dynamic time tables will distribute the available to along with the planned percentaged time slot. So the left 20 min will be splitted into two equal parts of 10 min.
+Dynamic time tables will distribute the available time proportionally to the open agenda entries. In this example the left 20 min will be splitted into two equal parts of 10 min.
+
+At the end the agenda will be:
+* Topic 1: 40 min
+* Topic 2: 10 min
+* Topic 3: 10 min
 
 In case of a reduction of an agenda point the additional time will not be splitted. Use the time to close the meeting earlier.
 
+In this case the agenda will be:
+* Topic 1: 40 min
+* Topic 2: 15 min
+
 #### Online Sharing of the Agenda
 
-Especially when agendas are dynamicly changed, it is very hard for the participants to take care of the time table. Sharing the agenda via screen sharing might be an option. But with multiple presenters it is hard to follow.
+Especially when agendas are dynamically changed, it is very hard for the participants to take care of the time table. Sharing the agenda via screen sharing might be an option. But with multiple presenters it is hard to follow.
 
 Thus I plan to introduce a P2P communication of the tool based on WebRTC. I don't like to store data centrally, so I think this might be a good solution.
-More details can be found in the [development section](DEVELOPMENT.md). 
+More details will be available in the [development section](DEVELOPMENT.md) in future. 
 
 ## Release Notes
 
 ### V0.4.0
 
 * Add agenda entry changed (no empty entry in meeting anymore, dedicated blank entry instead)
+* Show time when meeting will end
 
 ### V0.3.2
 
