@@ -397,19 +397,21 @@ const adjustCurrentPositionAfterDragEvent = (e) => {
 }
 
 const calculateEndTime = () => {
-  let currentEndTime = new Date()
-  let restOfMeeting = currentTime
-  if (currentTime<0) {
-    restOfMeeting = 0
-  }
-  for (let i=currentAgendaId.value+1; i<mRef.value.agenda.length; i++) {
-    restOfMeeting += (mRef.value.agenda[i].time * 60)
-  }
-  currentEndTime.setSeconds(currentEndTime.getSeconds() + restOfMeeting)
+  if (timeState.value !== 0) {
+    let currentEndTime = new Date()
+    let restOfMeeting = currentTime
+    if (currentTime<0) {
+      restOfMeeting = 0
+    }
+    for (let i=currentAgendaId.value+1; i<mRef.value.agenda.length; i++) {
+      restOfMeeting += (mRef.value.agenda[i].time * 60)
+    }
+    currentEndTime.setSeconds(currentEndTime.getSeconds() + restOfMeeting)
 
-  let hours = currentEndTime.getHours()
-  let minutes = currentEndTime.getMinutes()
-  endTime.value = (hours<10?'0'+hours:hours) + ':' + (minutes<10?'0'+minutes:minutes)
+    let hours = currentEndTime.getHours()
+    let minutes = currentEndTime.getMinutes()
+    endTime.value = (hours<10?'0'+hours:hours) + ':' + (minutes<10?'0'+minutes:minutes)
+  }
 }
 
 </script>
