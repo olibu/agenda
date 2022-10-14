@@ -10,7 +10,7 @@
       hide-details="auto"
       v-model="title"
       class="pr-1"
-      v-on:keyup="checkEnter"
+      @keyup.enter="checkEnter"
       ref="titleRef"
     />
     <v-text-field
@@ -21,9 +21,10 @@
       v-model="time"
       type="number"
       class="w80px"
-      v-on:keyup="checkEnter"
+      @keyup.enter="checkEnter"
     />
     <v-btn
+      @focus="titleRef.focus()"
       @click="addAgenda"
       icon="mdi-plus"
       density="compact"
@@ -55,10 +56,7 @@ const addAgenda = () => {
 }
 
 const checkEnter = (e) => {
-  if (e.keyCode === 13) {
     addAgenda()
-
-  }
 }
 </script>
 <style>
