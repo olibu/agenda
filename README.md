@@ -8,12 +8,14 @@ You can use the tool directly from [my github page](https://olibu.github.io/agen
 
 If you want to use the app without internet connection you can install it from your browser. In Chome you will see an "Install Agenda" button in the addressbar. On iOS you can simply add the page to your home screen. For more details search for "PWA installation" in the internet. 
 
-You will be informed in case of new releases published to my github page.
+You will be informed in case of new releases published to my github page within the app.
 
 You might ask why there is another tool like this. And you are right. There are already a lot of tools with this functionallity.
 
 I really love the [Online Timer App](https://webuhr.de/timer/). I used it very often for standup meetings.
 For more complex meetings I like the [Timebocks App](https://timeblocks.co/). Timeblocks is a closed source free to use for non-commercial. This makes it somehow unattractive for me. It looks great but it seems to get commercial somewhen.
+
+However, some functions are missing in those tools. As they are not open source, I had to created my own one.
 
 ## Technology Details
 
@@ -109,6 +111,7 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 * Add agenda entry changed (no empty entry in meeting anymore, dedicated blank entry instead)
 * Show time when meeting will end
+* Active agenda entry is disabled
 
 ### V0.3.2
 
@@ -156,6 +159,7 @@ Initial version with the following basic features
 * Reduce time of active agenda entry via button
 * Add agenda entry via button instead of automatic adding
 * Wider layout for larger screens
+* P2P connection between multiple agenda app instances
 
 ## License
 

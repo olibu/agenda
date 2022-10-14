@@ -11,6 +11,7 @@
       hide-details="auto"
       v-model="agenda.title"
       class="pr-1"
+      :disabled="props.agenda && props.agenda.isActive"
     />
     <v-text-field
       label="min"
@@ -20,6 +21,7 @@
       v-model="agenda.time"
       type="number"
       class="w80px"
+      :disabled="props.agenda && props.agenda.isActive"
     />
     <v-btn
       @click="deleteAgendaEntry"
@@ -27,6 +29,7 @@
       icon="mdi-delete"
       density="compact"
       variant="text"
+      :disabled="props.agenda && props.agenda.isActive"
     />
     <v-btn
       tabindex="-1"
