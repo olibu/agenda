@@ -17,6 +17,12 @@
           <span>New</span>
         </v-btn>
         <v-btn
+          to="/settings"
+        >
+          <v-icon>mdi-cog-outline</v-icon>
+          <span>Settings</span>
+        </v-btn>
+        <v-btn
           to="/about"
         >
           <v-icon>mdi-information</v-icon>

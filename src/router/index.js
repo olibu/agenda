@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import MeetingsList from '@/views/MeetingsListView.vue'
 import Meeting from '@/views/MeetingView.vue'
 import MeetingTimer from '@/views/MeetingTimerView.vue'
+import Settings from '@/views/SettingsView.vue'
 import About from '@/views/AboutView.vue'
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
     path: '/timer/:id',
     name: 'timer',
     component: MeetingTimer,
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: Settings,
   },
   {
     path: '/about',
