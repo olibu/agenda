@@ -8,7 +8,7 @@
       <v-col class="align-self-center">
         Darkmode
       </v-col>
-      <v-col>
+      <v-col cols="4">
         <v-select
           :items="['os', 'dark', 'light']"
           v-model="store.theme"
@@ -17,6 +17,53 @@
         />
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col class="align-self-center">
+        Sound on
+      </v-col>
+      <v-col cols="4">
+        <v-checkbox
+            class="ma-0 pa-0"
+            v-model="store.soundOn"
+            hide-details
+          />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col class="align-self-center">  
+        Automatic move to next agenda entry
+      </v-col>
+      <v-col cols="4">
+        <v-checkbox
+            class="ma-0 pa-0 pr-2"
+            v-model="store.autoOn"
+            hide-details
+          />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col class="align-self-center">  
+        Adjust start time
+      </v-col>
+      <v-col cols="4">
+        <v-checkbox
+            class="ma-0 pa-0 pr-2"
+            v-model="store.adjustStartTime"
+            hide-details
+          />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col class="align-self-center">  
+      </v-col>
+      <v-col cols="4">
+      </v-col>
+    </v-row>
+
     <v-row class="ma-2"></v-row>
   </v-card>
 </template>
