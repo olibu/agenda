@@ -39,4 +39,22 @@
 
 <script setup>
   import ReloadPrompt from './components/ReloadPrompt.vue';
+  import { useMeetingStore } from '@/stores/MeetingStore.js'
+  import { useTheme } from 'vuetify'
+
+  const store = useMeetingStore()
+
+  const theme = useTheme()
+  let themeSetting = store.theme
+
+  if (themeSetting === 'os') {
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (prefersDarkScheme.matches) {
+      themeSetting = 'dark';
+    } else {
+      themeSetting = 'light';
+    }
+  }
+
+  theme.global.name.value = themeSetting
 </script>

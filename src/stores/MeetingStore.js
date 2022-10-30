@@ -8,6 +8,7 @@ export const useMeetingStore = defineStore('MeetingStore', {
       soundOn: true,
       autoOn: true,
       adjustStartTime: true,
+      theme: 'os',
     }
   },
   persist: true,
