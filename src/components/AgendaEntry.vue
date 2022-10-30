@@ -33,7 +33,7 @@
     />
     <v-btn
       tabindex="-1"
-      icon="mdi-drag"
+      icon="mdi-drag-vertical"
       density="compact"
       variant="text"
       class="handle move"
@@ -58,9 +58,9 @@ watch(() => props.agenda.time, (newValue, oldValue) => {
 })
 
 const interactiveBgColor = () => {
-  let bgColor = 'bg-purple-darken-2'
+  let bgColor = 'bg-agendaentry'
   if (props.agenda && props.agenda.isActive) {
-    bgColor = 'bg-pink-darken-3'
+    bgColor = 'bg-agendaentryactive'
   }
   return bgColor
 }

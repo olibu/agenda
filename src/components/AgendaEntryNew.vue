@@ -1,6 +1,6 @@
 <template>
   <v-row
-    class="pa-2 ma-1 rounded-lg d-flex flex-nowrap bg-grey-darken-3"
+    class="pa-2 ma-1 rounded-lg d-flex flex-nowrap bg-newentry"
     align="center"
   >
     <v-text-field

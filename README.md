@@ -107,6 +107,11 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.5.0
+
+* Settings page added
+* Theme can be selected manually or by OS setting
+
 ### V0.4.0
 
 * Add agenda entry changed (no empty entry in meeting anymore, dedicated blank entry instead)

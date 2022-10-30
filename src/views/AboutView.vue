@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto mt-10"
+    class="mx-auto mt-10 bg-cardbg"
     max-width="344"
     tonal
   >

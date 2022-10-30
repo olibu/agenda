@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="ma-2 pb-3 rounded-shaped bg-blue-grey-darken-3"
+    class="ma-2 pb-3 rounded-shaped bg-cardbg"
   >
     <v-card-title align="center">{{mRef.title}} - {{endTime}}</v-card-title>
 
@@ -128,7 +128,7 @@
     </v-row>
 
     <v-list
-      class="ma-0 pa-0 bg-blue-grey-darken-3"
+      class="ma-0 pa-0 bg-cardbg"
     >
       <draggable
           v-model="mRef.agenda"

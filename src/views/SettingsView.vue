@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="ma-2 pa-3"
+    class="ma-2 pa-3 rounded-lg bg-cardbg"
     tonal
   >
     <v-card-title align="center">Settings</v-card-title>
