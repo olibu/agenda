@@ -87,11 +87,20 @@
           v-model="customTheme"
           variant="outlined"
           class="ma-2"
-          rows="10"
+          rows="8"
           hide-details
           hint="sd"
           density="compact"
         />
+        <div
+          class="pa-2 d-flex justify-center"
+        >
+          <v-color-picker
+            dot-size="13"
+            mode="hex"
+            model-value="hex"
+          />
+        </div>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -143,6 +152,7 @@
 
   const editorDlg = ref(false)
   const customTheme = ref('')
+  const hex = ref('#000000')
 
   const openThemeEditor = () => {
     if (store.theme === 'customDark') {
