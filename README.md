@@ -111,6 +111,7 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 * Settings page added
 * Theme can be selected manually or by OS setting
+* Theme can be customized
 
 ### V0.4.0
 
