@@ -6,7 +6,7 @@
     <v-card-title align="center">Settings</v-card-title>
     <v-row class="mt-3">
       <v-col class="align-self-center">
-        Darkmode
+        Theme
       </v-col>
       <v-col cols="5" class="d-flex flex-nowrap">
         <v-select
