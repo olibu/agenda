@@ -8,12 +8,20 @@
       <v-col class="align-self-center">
         Darkmode
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5" class="d-flex flex-nowrap">
         <v-select
-          :items="['os', 'dark', 'light']"
+          :items="['os', 'dark', 'light', 'customLight', 'customDark']"
           v-model="store.theme"
           density="compact"
           hide-details
+        />
+        <v-btn 
+          icon="mdi-pencil"
+          variant="text"
+          density="compact"
+          class="ml-1 align-self-center"
+          :disabled="(store.theme==='customLight' || store.theme==='customDark')?false:true"
+          @click="openThemeEditor"
         />
       </v-col>
     </v-row>
@@ -22,7 +30,7 @@
       <v-col class="align-self-center">
         Sound on
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-checkbox
             class="ma-0 pa-0"
             v-model="store.soundOn"
@@ -35,7 +43,7 @@
       <v-col class="align-self-center">  
         Automatic move to next agenda entry
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-checkbox
             class="ma-0 pa-0 pr-2"
             v-model="store.autoOn"
@@ -48,7 +56,7 @@
       <v-col class="align-self-center">  
         Adjust start time
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-checkbox
             class="ma-0 pa-0 pr-2"
             v-model="store.adjustStartTime"
@@ -60,22 +68,60 @@
     <v-row>
       <v-col class="align-self-center">  
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
       </v-col>
     </v-row>
 
     <v-row class="ma-2"></v-row>
+
+    <v-dialog
+      v-model="editorDlg"
+      persistent
+    >
+      <v-card
+      >
+        <v-card-title class="text-h5">
+          Theme editor
+        </v-card-title>
+        <v-textarea
+          v-model="customTheme"
+          variant="outlined"
+          class="ma-2"
+          rows="10"
+          hide-details
+          hint="sd"
+          density="compact"
+        />
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green-darken-1"
+            variant="text"
+            @click="editorDlg = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="green-darken-1"
+            variant="text"
+            @click="editorDlg = false; saveColors()"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
 <script setup>
   import { useMeetingStore } from '@/stores/MeetingStore.js'
   import { useTheme } from 'vuetify'
-  import { watch } from 'vue'
+  import { ref, watch } from 'vue'
 
   const store = useMeetingStore()
 
-  const theme = useTheme()
+  const vTheme = useTheme()
 
   watch(() => store.theme, (newValue, oldValue) => {
     let themeSetting = newValue
@@ -88,10 +134,35 @@
       }
     }
   
-    theme.global.name.value = themeSetting
+    vTheme.global.name.value = themeSetting
   })
 
-  // let themeSetting = store.theme
+  /**
+   * Theme editor
+   */
+
+  const editorDlg = ref(false)
+  const customTheme = ref('')
+
+  const openThemeEditor = () => {
+    if (store.theme === 'customDark') {
+      customTheme.value = JSON.stringify(store.customThemeD, ' ', 2)
+    }
+    else {
+      customTheme.value = JSON.stringify(store.customThemeL, ' ', 2)
+    }
+    editorDlg.value = true
+  }
+
+  const saveColors = () => {
+    if (store.theme === 'customDark') {
+      store.customThemeD = JSON.parse(customTheme.value)
+    }
+    else {
+      store.customThemeL = JSON.parse(customTheme.value)
+    }
+    store.refreshTheme(vTheme)
+  }
 
 </script>
 

@@ -44,17 +44,6 @@
 
   const store = useMeetingStore()
 
-  const theme = useTheme()
-  let themeSetting = store.theme
+  store.refreshTheme(useTheme())
 
-  if (themeSetting === 'os') {
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (prefersDarkScheme.matches) {
-      themeSetting = 'dark';
-    } else {
-      themeSetting = 'light';
-    }
-  }
-
-  theme.global.name.value = themeSetting
 </script>
