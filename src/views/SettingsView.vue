@@ -10,7 +10,7 @@
       </v-col>
       <v-col cols="5" class="d-flex flex-nowrap">
         <v-select
-          :items="['os', 'dark', 'light', 'customLight', 'customDark']"
+          :items="['os', 'dark', 'light', 'customDark', 'customLight']"
           v-model="store.theme"
           density="compact"
           hide-details
