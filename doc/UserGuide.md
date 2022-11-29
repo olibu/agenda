@@ -13,7 +13,7 @@ In case you want to access the application without internet connection locally f
 
 Just visit the link of the application mentioned earlier and click on the installation button in the address bar and on "Install".
 
-![PWA installation](chrome_install.png)
+![PWA installation](chrome_install.png =300x)
 
 Now you can start the application as any other locally installed application.
 
