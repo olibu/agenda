@@ -23,8 +23,8 @@ Now you can start the application as any other locally installed application.
 As any other PWA application you can install this application by opening the URL in Safari.
 Then click on the share button of Safari and select "Add to homescreen". Now you can start the application from your homescreen even if you do not have an internet connection.
 
-![installation iOS 1](ios_install1.png)
-![installation iOS 2](ios_install2.png)
+![installation iOS 1](ios_install1.PNG)
+![installation iOS 2](ios_install2.PNG)
 ![installation iOS 3](ios_install3.png)
 
 ## Main View
@@ -33,7 +33,7 @@ Here are some screenshots of the main window on different devices.
 ![Darkmode on MacOS](dark_macos.png)
 ![Lightmode on MacOS](light_macos.png)
 ![Darkmode on Chrome](dark_chrome.png)
-![Darkmode on iOS](dark_ios.png)
+![Darkmode on iOS](dark_ios.PNG)
 
 ## Create a Meeting
 

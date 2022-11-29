@@ -25,12 +25,14 @@ As not everyone is interested in technology I will provide them [here](DEVELOPME
 
 The tool is mentioned the be intuitive.
 
+![Darkmode on MacOS](doc/dark_macos.png)
+
 Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
 
 The meeting agendas will be stored in your browser only. There is no cloud used. Only the page is provided through a cloud service as static files.
 
 As of some user feedback, the UI isn't that intuitive as expected.
-Thus there is now a user guide providede [here](doc/UserGuide.md)
+Thus there is now a user guide provided [here](doc/UserGuide.md)
 
 ### Features
 
