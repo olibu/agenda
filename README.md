@@ -25,7 +25,7 @@ As not everyone is interested in technology I will provide them [here](DEVELOPME
 
 The tool is mentioned the be intuitive.
 
-![Darkmode on MacOS](doc/dark_macos.png)
+![Darkmode on MacOS](doc/start_meeting.png)
 
 Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
 
