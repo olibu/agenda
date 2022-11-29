@@ -23,53 +23,23 @@ As not everyone is interested in technology I will provide them [here](DEVELOPME
 
 ## User Guide
 
-The tool is mentioned the be intuitive. Thus there is no need to provide a user guide ;)
+The tool is mentioned the be intuitive.
 
 Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
 
 The meeting agendas will be stored in your browser only. There is no cloud used. Only the page is provided through a cloud service as static files.
 
+As of some user feedback, the UI isn't that intuitive as expected.
+Thus there is now a user guide providede [here](doc/UserGuide.md)
+
 ### Features
 
-#### Automatic move to next agenda entry
+* Automatic move to next agenda entry
+* Adjust start time
+* Calculate the end time eof the meeting
+* Play sound at the end of an agenda entry and meeting
 
-If this option is selected (via the settings icon in the top left corner of a meeting), the next agenda entry
-will be automatiacally selected after the time of an entry has been expired.
-
-If this option is deselected, you have to switch to the next agenda entry via the next button. As long as you
-do not switch to the next one, the counter will still be decreased. The end time of the meeting will change, too.
-
-#### Adjust start time
-
-This option will adjust the first agenda entry based on the current time.
-
-Here is a simple example:
-* Topic 1: 30 min
-* Topic 2: 30 min
-
-In case you start the meeting at 09:05, the time of Topic 1 will automatically be adjusted by 5 minutes.
-Thus the Topic 2 will start at 09:30.
-
-The adjustment will only be done according to the duration of the first agenda entry.
-
-In case your first agenda entry is 5 min and you start the meeting at 9:06, nothing will be adjusted, as no "even" time within the last 5 min can be found. You would have the raise the duration to 10 min before starting the meeting in 
-this case.
-
-"Even" times means 30 min steps. 9:00, 9:30 and so on. Thus it would make sense to eather start the meeting in time
-or to start you meeting with a "welcome" of 5 to 10 min (especially if you have very short agenda entries). 
-
-### Meeting End Time
-
-The time when the meeting will end is added to the title of the meeting.
-
-The rest of time of the current agenda entry and the rest of all not already
-finished agenda entries are added to the current time.
-
-The end time of the meeting will be adjusted in case of
-* drag&drop of agenda entries
-* modifications of the duration of not already finished agenda entries
-* adding of new agenda entries
-* deletion of not already finished agenda entries
+See the user manual for more details.
 
 ### Planned Features
 
