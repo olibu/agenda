@@ -107,6 +107,10 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.5.1
+
+* Fix: Meeting time calculation fixed in case of new agenda entry
+
 ### V0.5.0
 
 * Settings page added
@@ -163,7 +167,6 @@ Initial version with the following basic features
 * Automatic meeting duration adjustment (reduce time of following agenda entries in case of overtimes)
 * Add additional time to active agenda entry via button
 * Reduce time of active agenda entry via button
-* Add agenda entry via button instead of automatic adding
 * Wider layout for larger screens
 * P2P connection between multiple agenda app instances
 

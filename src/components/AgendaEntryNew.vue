@@ -49,7 +49,7 @@ const titleRef = ref(null)
 const emit = defineEmits(['add'])
 
 const addAgenda = () => {
-  emit('add', {title: title.value, time: time.value})
+  emit('add', {title: title.value, time: parseInt(time.value)})
   title.value = ''
   time.value = 0
   titleRef.value.focus()
