@@ -12,5 +12,8 @@
     <v-card-text>
       Further details can be found on <a href="https://github.com/olibu/agenda" target="_blank">Github</a>
     </v-card-text>
+    <v-card-text>
+      The user guide can be found on <a href="https://github.com/olibu/agenda/blob/main/doc/UserGuide.md" target="_blank">Github</a>, too.
+    </v-card-text>
   </v-card>
 </template>
