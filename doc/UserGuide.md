@@ -133,6 +133,8 @@ You can select between the following themes:
 In case of a customizable theme, the "pen" button will be activated.
 You can change the color values of all css attributes. Do not forget to save your changes.
 
+A good reference for material design colors can be found [here](https://m2.material.io/design/color/the-color-system.html)
+
 ![Theme Editor](theme_editor.png)
 
 ### Sound on
