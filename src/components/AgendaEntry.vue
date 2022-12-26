@@ -1,12 +1,8 @@
 <template>
   <v-row
-    class="pa-0 ma-1 rounded-lg"
+    class="pa-2 ma-1 rounded-lg d-flex flex-nowrap"
     align="center"
     v-bind:class="interactiveBgColor()"
-  >
-  <v-col
-    cols="9"
-    class="pl-1 pt-1 pb-1 pr-0"
   >
     <v-text-field
       label="title"
@@ -14,12 +10,9 @@
       variant="outlined"
       hide-details="auto"
       v-model="agenda.title"
+      class="pr-1"
+      :readonly="props.agenda && props.agenda.isActive"
     />
-  </v-col>
-  <v-col
-    cols="2"
-    class="pl-1 pt-1 pb-1 pr-0"
-  >
     <v-text-field
       label="min"
       density="compact"
@@ -27,66 +20,33 @@
       hide-details="auto"
       v-model="agenda.time"
       type="number"
+      class="w80px"
+      :readonly="props.agenda && props.agenda.isActive"
     />
-  </v-col>
-  <v-col
-    cols="1"
-    class="pt-1 pb-1"
-  >
-  <v-menu
-      open-on-hover
-      location="start"
-      v-if="inactive"
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          v-bind="props"
-          icon="mdi-dots-vertical"
-          density="compact"
-          variant="text"
-        />
-      </template>
-
-      <v-list
-      class="pt-0 pb-0"
-      >
-        <v-list-item-action
-          class="pt-0 pb-0"
-        >
-        <v-btn
-          @click="deleteAgendaEntry"
-        >delete</v-btn>
-        </v-list-item-action>
-      </v-list>
-    </v-menu>
-  </v-col>
+    <v-btn
+      @click="deleteAgendaEntry"
+      tabindex="-1"
+      icon="mdi-delete"
+      density="compact"
+      variant="text"
+      :disabled="props.agenda && props.agenda.isActive"
+    />
+    <v-btn
+      tabindex="-1"
+      icon="mdi-drag-vertical"
+      density="compact"
+      variant="text"
+      class="handle move"
+    />
   </v-row>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
+
 const props = defineProps(['agenda'])
 
-const emit = defineEmits(['create', 'delete', 'timechange'])
-
-watch(() => props.agenda.title, (newValue, oldValue) => {
-  inactive.value = true
-  if (!oldValue && newValue) {
-    emit('create')
-  }
-  else if (oldValue && !newValue) {
-    emit('delete', props.agenda)
-  }
-  if (!newValue) {
-    inactive.value = false
-  }
-})
-
-const inactive = ref(false)
-
-if (props.agenda.title) {
-  inactive.value = true
-}
+const emit = defineEmits(['delete', 'timechange'])
 
 watch(() => props.agenda.time, (newValue, oldValue) => {
   let oldTime = parseInt(oldValue)
@@ -98,9 +58,9 @@ watch(() => props.agenda.time, (newValue, oldValue) => {
 })
 
 const interactiveBgColor = () => {
-  let bgColor = inactive.value ? 'bg-purple-darken-2' : 'bg-grey-darken-3'
-  if (inactive.value && props.agenda.isActive) {
-    bgColor = 'bg-pink-darken-3'
+  let bgColor = 'bg-agendaentry'
+  if (props.agenda && props.agenda.isActive) {
+    bgColor = 'bg-agendaentryactive'
   }
   return bgColor
 }
@@ -112,5 +72,11 @@ const deleteAgendaEntry = () => {
 <style>
   .h-align {
     text-align: center;
+  }
+  .move {
+    cursor: move;
+  }
+  .w80px {
+    max-width: 80px;
   }
 </style>

@@ -6,5 +6,45 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 
 export default createVuetify({
-  theme: { defaultTheme: 'dark' },
+  theme: {
+    themes: {
+      light: {
+        colors: {
+          newentry: '#CCCCCC',
+          agendaentry: '#894BE5',
+          agendaentryactive: '#EC4079',
+          cardbg: '#ECECEC',
+        },
+      },
+      dark: {
+        colors: {
+          newentry: '#555555',
+          agendaentry: '#7B1FA2',
+          agendaentryactive: '#AD1457',
+          cardbg: '#333333',
+          secondary: '#7B1FA2',
+        },
+      },
+      customDark: {
+        dark: true,
+        colors: {
+          newentry: '#555555',
+          agendaentry: '#7B1FA2',
+          agendaentryactive: '#AD1457',
+          cardbg: '#333333',
+          secondary: '#7B1FA2',
+        },
+      },
+      customLight: {
+        dark: false,
+        colors: {
+          newentry: '#CCCCCC',
+          agendaentry: '#894BE5',
+          agendaentryactive: '#EC4079',
+          cardbg: '#ECECEC',
+          secondary: '#61CDF9',
+        },
+      },
+    },
+  },
 })

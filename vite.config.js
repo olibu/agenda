@@ -15,7 +15,7 @@ export default defineConfig({
       registerType: 'prompt',
       // registerType: 'autoUpdate',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,woff,ttf,woff2,eot}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,woff,ttf,woff2,eot,mp3}'],
       },
       injectRegister: 'auto',
       includeAssets: ['favicon.ico'],

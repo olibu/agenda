@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="ma-2 pb-3 rounded-shaped bg-blue-grey-darken-3"
+    class="ma-2 pb-3 rounded-shaped bg-cardbg"
   >
     <v-card-title align="center">Edit Meeting</v-card-title>
 
@@ -15,8 +15,9 @@
           v-model="mRef.title"
           hide-details="auto"
           variant="outlined"
-          placeholder="Title"
+          label="Meetingtitle"
           density="compact"
+          autofocus
         />
       </v-col>
       <v-col
@@ -28,29 +29,32 @@
           variant="outlined"
           v-model="mRef.time"
           density="compact"
-          placeholder="min"
+          label="duration"
+          type="number"
           disabled
         />
       </v-col>
     </v-row>
 
-    <p
-      class="ma-2"
-    >
-      Agenda:
-    </p>
-
     <v-list
-      class="ma-0 pa-0 bg-blue-grey-darken-3"
-      v-for="agenda in mRef.agenda"
-      :value="agenda"
+      class="ma-0 pa-0 bg-cardbg"
     >
-      <AgendaEntry
-        :agenda="agenda"
-        @create="createAgenda"
-        @delete="deleteAgenda"
-        @timechange="timeChanged"
-      />
+      <draggable
+          v-model="mRef.agenda"
+          handle=".handle"
+          item-key="id"
+        >
+        <template #item="{ element }">
+        <AgendaEntry
+          :agenda="element"
+          @delete="deleteAgenda"
+          @timechange="timeChanged"
+        />
+        </template>
+      </draggable>
+      <AgendaEntryNew
+          @add="addAgenda"
+        />
     </v-list>
 
     <v-row
@@ -60,11 +64,13 @@
         <v-btn
           v-if="mRef.id==-1"
           @click="addMeeting"          
-        >Add</v-btn>
+          color="secondary"
+        >Add Meeting</v-btn>
         <v-btn
           v-if="mRef.id!=-1"
           @click="saveMeeting"          
-        >Save</v-btn>
+          color="secondary"
+        >Save Meeting</v-btn>
       </v-col>
     </v-row>
   </v-card>
@@ -73,8 +79,11 @@
 <script setup>
 import { ref, watch } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
+import AgendaEntryNew from '@/components/AgendaEntryNew.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
+import draggable from "vuedraggable"
+
 const store = useMeetingStore()
 
 const route = useRoute()
@@ -91,16 +100,15 @@ watch(() => route.params.id, (newValue, oldValue) => {
   }
 })
 
-const createAgenda = () => {
-  mRef.value.agenda.push({title: '', time: 0, ctime: 0})
-
+const addAgenda = (agenda) => {
+  mRef.value.agenda.push({title: agenda.title, time: agenda.time})
+  mRef.value.time = mRef.value.time + agenda.time
 }
+
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
-  if (pos+1 < mRef.value.agenda.length) {
-    mRef.value.agenda.splice(pos, 1)
-  }
+  mRef.value.agenda.splice(pos, 1)
 }
 
 const timeChanged = (time) => {

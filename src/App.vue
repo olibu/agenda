@@ -17,6 +17,12 @@
           <span>New</span>
         </v-btn>
         <v-btn
+          to="/settings"
+        >
+          <v-icon>mdi-cog-outline</v-icon>
+          <span>Settings</span>
+        </v-btn>
+        <v-btn
           to="/about"
         >
           <v-icon>mdi-information</v-icon>
@@ -33,4 +39,11 @@
 
 <script setup>
   import ReloadPrompt from './components/ReloadPrompt.vue';
+  import { useMeetingStore } from '@/stores/MeetingStore.js'
+  import { useTheme } from 'vuetify'
+
+  const store = useMeetingStore()
+
+  store.refreshTheme(useTheme())
+
 </script>

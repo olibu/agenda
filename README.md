@@ -4,52 +4,117 @@
 
 Agenda is a browser based standalone tool to track the time table of meetings.
 
-You can use the tool directly on [my github page](https://olibu.github.io/agenda).
+You can use the tool directly from [my github page](https://olibu.github.io/agenda).
 
-You might ask why there is another tool to this. And you are right.
-I really love the [Online Timer App](https://webuhr.de/timer/). I use it very often for standup meetings.
+If you want to use the app without internet connection you can install it from your browser. In Chome you will see an "Install Agenda" button in the addressbar. On iOS you can simply add the page to your home screen. For more details search for "PWA installation" in the internet. 
+
+You will be informed in case of new releases published to my github page within the app.
+
+You might ask why there is another tool like this. And you are right. There are already a lot of tools with this functionallity.
+
+I really love the [Online Timer App](https://webuhr.de/timer/). I used it very often for standup meetings.
 For more complex meetings I like the [Timebocks App](https://timeblocks.co/). Timeblocks is a closed source free to use for non-commercial. This makes it somehow unattractive for me. It looks great but it seems to get commercial somewhen.
 
-## Technologic Details
+However, some functions are missing in those tools. As they are not open source, I had to created my own one.
 
-As not everyone is interested in technologic details I will provide them [here](DEVELOPMENT.md).
+## Technology Details
+
+As not everyone is interested in technology I will provide them [here](DEVELOPMENT.md).
 
 ## User Guide
 
-The tool is mentioned the be intuitive. Thus there is no need to provide a user guide ;)
+The tool is mentioned the be intuitive.
 
-Just start the tool, create meeting and add a timeslot for each agenda entry. When the meeting strats you can start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry.
+![Darkmode on MacOS](doc/start_meeting.gif)
 
-The meeting agendas will be stored in your browser only. There is cloud used. Only the page might be provided through a cloud service in future.
+Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
 
-As already mentioned, there are many tools already providing this functionallity.
+The meeting agendas will be stored in your browser only. There is no cloud used. Only the page is provided through a cloud service as static files.
 
-I plan the following details which hopefully make this tool unique and helpfull.
+As of some user feedback, the UI isn't that intuitive as expected.
+Thus there is now a user guide provided [here](doc/UserGuide.md)
 
-### Dynamic Timetable
+### Features
+
+* Automatic move to next agenda entry
+* Adjust start time
+* Calculate the end time eof the meeting
+* Play sound at the end of an agenda entry and meeting
+
+See the user manual for more details.
+
+### Planned Features
+
+#### Dynamic Timetable
 
 I often have the issue that there is no time left at the end of the meeting for the last agenda point.
-The dynamic timetable might help here. 
+The dynamic timetable might help here to have a more fair meeting. 
 
-Example of an agenda an 1 hour meeting:
+Example of an agenda for an 1 hour meeting:
 * Topic 1: 30 min
 * Topic 2: 15 min
 * Topic 3: 15 min
 
-Expect the the first Topic requires 10 min more time to be discussed. This typical has the impact for the last topic to only be 5 min. As the second topic has been planed for 15 min. In case the second topic even takes more time there is no time left for the last topic.
+Expect the first topic requires 10 min more time to be discussed. This typical has the impact for the last topic to only be 5 min. As the second topic has been planed for 15 min. In case the second topic even takes more time there is no time left for the last topic.
 
-However dynamic time tables will distribute the available to along with the planned percentaged time slot. So the left 20 min will be splitted into two equal parts of 10 min.
+Dynamic time tables will distribute the available time proportionally to the open agenda entries. In this example the left 20 min will be splitted into two equal parts of 10 min.
+
+At the end the agenda will be:
+* Topic 1: 40 min
+* Topic 2: 10 min
+* Topic 3: 10 min
 
 In case of a reduction of an agenda point the additional time will not be splitted. Use the time to close the meeting earlier.
 
-### Online Sharing of the Agenda
+In this case the agenda will be:
+* Topic 1: 40 min
+* Topic 2: 15 min
 
-Especially when agendas are dynamicly changed, it is very hard for the participants to take care of the time table. Sharing the agenda via screen sharing might be an option. But with multiple presenters it is hard to follow.
+#### Online Sharing of the Agenda
+
+Especially when agendas are dynamically changed, it is very hard for the participants to take care of the time table. Sharing the agenda via screen sharing might be an option. But with multiple presenters it is hard to follow.
 
 Thus I plan to introduce a P2P communication of the tool based on WebRTC. I don't like to store data centrally, so I think this might be a good solution.
-More details can be found in the [development section](DEVELOPMENT.md). 
+More details will be available in the [development section](DEVELOPMENT.md) in future. 
 
 ## Release Notes
+
+### V0.5.1
+
+* Fix: Meeting time calculation fixed in case of new agenda entry
+
+### V0.5.0
+
+* Settings page added
+* Theme can be selected manually or by OS setting
+* Theme can be customized
+
+### V0.4.0
+
+* Add agenda entry changed (no empty entry in meeting anymore, dedicated blank entry instead)
+* Show time when meeting will end
+* Active agenda entry is disabled
+
+### V0.3.2
+
+* Sound fixed in case of manual agenda entry switch
+
+### V0.3.1
+
+* Sound file paths fixed for distribution
+
+### V0.3.0
+
+* Bottom navigation
+* Separated edit and timer view
+* Automatic save of changed removed
+* Progress moved to Meeting view instead of each agenda
+* Dragable agenda entries
+* Navigation (previous/next)
+* Agenda time in minutes and seconds
+* Sound added
+* Option to deactivate automatice switch to next agenda entry
+* Remove difference between last full hour/half hour and current time from first agenda entry
 
 ### V0.2.0
 
@@ -68,6 +133,26 @@ Initial version with the following basic features
 * Create new meetings
 * Application can be used offline
 
+## Next Features
+
+* Show overall meeting progress additionally
+* Automatic meeting duration adjustment (reduce time of following agenda entries in case of overtimes)
+* Add additional time to active agenda entry via button
+* Reduce time of active agenda entry via button
+* Wider layout for larger screens
+* P2P connection between multiple agenda app instances
+
 ## License
 
 Agenda is licensed under the [MIT License](https://tldrlegal.com/l/mit)
+
+
+### Sound File License
+
+"Free Sounds Library"
+
+Free Sound Effects Site.
+
+Licence: License: Attribution 4.0 International (CC BY 4.0). You are allowed to use sound effects free of charge and royalty free in your multimedia projects for commercial or non-commercial purposes.
+
+http://www.freesoundslibrary.com
