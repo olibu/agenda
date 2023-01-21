@@ -79,6 +79,11 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.6.0
+
+* New icon
+* Updated to latest lib versions
+
 ### V0.5.1
 
 * Fix: Meeting time calculation fixed in case of new agenda entry
