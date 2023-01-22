@@ -23,7 +23,7 @@ export default defineConfig({
         name: 'Agenda',
         short_name: 'Agenda',
         description: 'Agenda',
-        theme_color: '#1a1a1a',
+        theme_color: '#121212',
         icons: [
           {
             src: 'agenda192.png',
