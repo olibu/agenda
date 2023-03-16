@@ -104,14 +104,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="green-darken-1"
+            color="gray"
             variant="text"
             @click="editorDlg = false"
           >
             Cancel
           </v-btn>
           <v-btn
-            color="green-darken-1"
+            color="secondary"
             variant="text"
             @click="editorDlg = false; saveColors()"
           >
