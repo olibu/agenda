@@ -79,6 +79,12 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.7.0
+
+* Back button in meeting view
+* Dialog for deletion of meeting
+* Update to latest lib versions
+
 ### V0.6.0
 
 * New icon
