@@ -76,7 +76,7 @@ const store = useMeetingStore()
 const router = useRouter()
 
 const dialogDelete = ref(false)
-const deleteMeetingId = -1;
+let deleteMeetingId = -1;
 
 const openMeeting = (meetingId) => {
   router.push(`/timer/${meetingId}`)
