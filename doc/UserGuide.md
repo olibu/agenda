@@ -117,7 +117,7 @@ The end time of the meeting will be adjusted in case of
 
 ## Settings
 
-The settings view can be opened with the "Settings" button in bottom bar. Meeting relevant settings can be change directly from within the meetings view when hovering over the "Seetings" icon on the top left corner.
+The settings view can be opened with the "Settings" button in bottom bar. Meeting relevant settings can be change directly from within the meetings view when hovering over the "Seetings" icon on the top right corner.
 
 ### Theme
 
