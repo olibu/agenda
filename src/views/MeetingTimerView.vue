@@ -22,6 +22,14 @@
       </v-col>
     </v-row>
 
+    <v-btn
+      to="/"
+      icon="mdi-arrow-left"
+      density="compact"
+      variant="text"
+      style="position: absolute; top: 10px; left:10px"
+    />
+
     <v-menu
       open-on-hover
       location="start"
@@ -33,7 +41,7 @@
           icon="mdi-cog"
           density="compact"
           variant="text"
-          style="position: absolute; top: 10px; left:10px"
+          style="position: absolute; top: 10px; right:10px"
         />
       </template>
 
