@@ -71,7 +71,7 @@
       <v-col align="right">
         <v-btn
           to="/"          
-          color="secondary"
+          color="grey"
         >Cancel</v-btn>&nbsp;
         <v-btn
           v-if="mRef.id==-1"

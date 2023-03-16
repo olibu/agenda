@@ -47,14 +47,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="orange-darken-4"
+            color="grey"
             text
             @click="dialogDelete = false"
           >
             Cancel
           </v-btn>
           <v-btn
-            color="orange-darken-1"
+            color="secondary"
             text
             @click="deleteMeeting(deleteMeetingId)"
           >
