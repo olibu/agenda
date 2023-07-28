@@ -160,7 +160,11 @@
           v-model="mRef.agenda"
           handle=".handle"
           item-key="id"
+          tag="transition-group"
           @change="adjustCurrentPositionAfterDragEvent"
+          @start="isDragging = true"
+          @end="isDragging = false"
+          v-bind="dragOptions"
         >
         <template #item="{ element }">
         <AgendaEntry
@@ -236,6 +240,13 @@ const currentAgendaTime = ref('00:00')
 const currentAgendaTimePercentage = ref(0)
 const currentAgendaTimeColor = ref('teal')
 const endTime = ref('00:00')
+
+const dragOptions = {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      }
 
 const play = () => {
   if (timeState.value === 0) {
