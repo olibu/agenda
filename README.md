@@ -79,6 +79,10 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### Next
+
+* Drag animation added
+
 ### V0.8.0
 
 * Update to latest lib versions (vue 3.3.4 and vuetify 3.3.10)
