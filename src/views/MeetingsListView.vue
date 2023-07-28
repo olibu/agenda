@@ -10,7 +10,7 @@
           :key="i"
           :value="meeting"
           rounded="lg"
-          active-color="primary"
+          color="primary"
           @click.self="openMeeting(meeting.id)"
         >
           <v-list-item-title
