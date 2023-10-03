@@ -230,6 +230,10 @@ const addAgenda = (agenda) => {
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
+  // set the current id to the correct position if an entry before the current one has been deleted
+  if (pos < currentAgendaId.value) {
+    currentAgendaId.value -= 1
+  }
   mRef.value.agenda.splice(pos, 1)
   calculateEndTime()
 }
@@ -244,7 +248,7 @@ const router = useRouter()
 
 let currentAgenda     // the current agenda entrie object; -1 if meeting has not been started
 let intervalPointer   // reference to the current setInterval method
-let currentTime = -1  // current rest time in seconds
+let currentTime = -1  // current rest time in seconds of the active entry
 let currentAgendaNotified = false 
 const timeState = ref(0)  // 0: off; 1: running 2: paused
 const currentAgendaId = ref(-1)   // ref to the current active agenda point
@@ -446,8 +450,11 @@ const adjustCurrentPositionAfterDragEvent = (e) => {
   }
 }
 
+/**
+ * Calculate the actual time when the meeting ends.
+ */
 const calculateEndTime = () => {
-  if (timeState.value !== 0) {
+  if (timeState.value !== 0) { // only if the timer is running
     let currentEndTime = new Date()
     let restOfMeeting = currentTime
     if (currentTime<0) {
