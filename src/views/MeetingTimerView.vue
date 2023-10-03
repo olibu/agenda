@@ -1,35 +1,16 @@
 <template>
-  <v-card
-    class="ma-2 pb-3 rounded-shaped bg-cardbg"
-  >
-    <v-card-title align="center">{{mRef.title}} - {{endTime}}</v-card-title>
-
-    <v-row>
-      <v-col 
-        align="center"
-      >
-        <v-progress-circular
-          :rotate="360"
-          :size="100"
-          :width="10"
-          :model-value="currentAgendaTimePercentage"
-          :color="currentAgendaTimeColor"
-          class="text-h6"
-        >
-          <b>{{ currentAgendaTime }}</b>
-        </v-progress-circular>
-
-      </v-col>
-    </v-row>
-
+  <v-app-bar height="250">
+  <!-- <v-app-bar extended extension-height="80" density="prominent"> -->
+    <!-- Back Button -->
     <v-btn
       to="/"
       icon="mdi-arrow-left"
       density="compact"
       variant="text"
-      style="position: absolute; top: 10px; left:10px"
+      style="position: absolute; top: 25px; left:10px"
     />
 
+    <!-- Agenda Options -->
     <v-menu
       open-on-hover
       location="start"
@@ -41,7 +22,7 @@
           icon="mdi-cog"
           density="compact"
           variant="text"
-          style="position: absolute; top: 10px; right:10px"
+          style="position: absolute; top: 25px; right:10px"
         />
       </template>
 
@@ -81,17 +62,47 @@
       </v-list>
     </v-menu>
 
-    <v-row>
-      <v-col align="center">
-          <b>{{ currentAgendaTitle }}</b>
-      </v-col>
-    </v-row>
+    <!-- Agenda Header -->
+    <v-container >
+      <!-- Title with end time -->
+      <v-row>
+        <v-col align="center">
+            <span class="text-h6">{{mRef.title}} - {{endTime}}</span>
+        </v-col>
+      </v-row>
 
-    <v-row v-if="id!=-1">
+      <!-- Clock -->
+      <v-row no-gutters>
+        <v-col 
+          align="center"
+        >
+          <v-progress-circular
+            :rotate="360"
+            :size="100"
+            :width="10"
+            :model-value="currentAgendaTimePercentage"
+            :color="currentAgendaTimeColor"
+            class="text-h6"
+          >
+            <b>{{ currentAgendaTime }}</b>
+          </v-progress-circular>
+
+        </v-col>
+      </v-row>
+
+      <!-- Title of current Agenda Entry -->
+      <v-row no-gutters>
+        <v-col align="center" class="mt-2">
+            <b>{{ currentAgendaTitle }}</b>
+        </v-col>
+      </v-row>
+
+      <!-- Action buttons -->
+      <v-row>
       <v-col
         align="center"
         cols="12"
-        class="ma-2 pa-2"
+        class="ma-0 pa-0"
       >
         <v-btn 
           @click="previous"
@@ -152,18 +163,20 @@
         </v-btn>
       </v-col>
     </v-row>
+  </v-container>
+  </v-app-bar>
 
+  <v-container
+    class="ma-0 pa-1"
+  >
     <v-list
-      class="ma-0 pa-0 bg-cardbg"
+      class="ma-0 pa-0 bg-transparent"
     >
       <draggable
           v-model="mRef.agenda"
           handle=".handle"
           item-key="id"
-          tag="transition-group"
           @change="adjustCurrentPositionAfterDragEvent"
-          @start="isDragging = true"
-          @end="isDragging = false"
           v-bind="dragOptions"
         >
         <template #item="{ element }">
@@ -175,22 +188,24 @@
         </template>
       </draggable>
       <AgendaEntryNew
-          @add="addAgenda"
-        />
+        @add="addAgenda"
+      />
     </v-list>
-  </v-card>
+  </v-container>
+  
+  <!-- Dialog to show at end of meeting -->
   <v-dialog
       v-model="showDialog"
-    >
-      <v-card>
-        <v-card-text>
-          End of the meeting
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" block @click="showDialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+  >
+    <v-card>
+      <v-card-text>
+        End of the meeting
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" block @click="showDialog = false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
