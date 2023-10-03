@@ -165,7 +165,7 @@
   </v-app-bar>
 
   <v-container
-    class="ma-0 pa-1"
+    class="ma-0 pa-1" fluid
   >
     <v-list
       class="ma-0 pa-0 bg-transparent"
@@ -190,7 +190,7 @@
       />
     </v-list>
   </v-container>
-  
+
   <!-- Dialog to show at end of meeting -->
   <v-dialog
       v-model="showDialog"
