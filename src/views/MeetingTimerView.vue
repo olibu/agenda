@@ -6,10 +6,10 @@
         <!-- Back Button -->
         <v-col cols="1">
           <v-btn
-          to="/"
-          icon="mdi-arrow-left"
-          density="compact"
-          variant="text"
+            @click="back"
+            icon="mdi-arrow-left"
+            density="compact"
+            variant="text"
           />
         </v-col>
         
@@ -97,71 +97,71 @@
 
       <!-- Action buttons -->
       <v-row>
-      <v-col
-        align="center"
-        cols="12"
-        class="ma-0 pa-0"
-      >
-        <v-btn 
-          @click="previous"
-          icon="mdi-skip-previous"
-          size="small"
-          variant="outlined"
-          class="mr-2"
-          :disabled="timeState===0 || currentAgendaId===0"
-        />
-        <v-btn 
-          icon="mdi-play"
-          size="small"
-          @click="play"
-          v-if="timeState===0 || timeState===2"
-          variant="outlined"
-          class="mr-2"
-        />
-        <v-btn 
-          icon="mdi-pause"
-          @click="pause"
-          v-if="timeState===1"
-          size="small"
-          variant="outlined"
-          class="mr-2"
-        />
-        <v-btn 
-          icon="mdi-stop"
-          @click="stop"
-          size="small"
-          variant="outlined"
-          class="mr-2"
-          :disabled="timeState==0"
-        />
-        <v-btn 
-          @click="next(false)"
-          icon="mdi-skip-next"
-          size="small"
-          variant="outlined"
-          class="mr-2"
-          :disabled="timeState===0 || (currentAgendaId+2)>meeting.agenda.length"
-        />
-        <v-btn 
-          @click="scramble()"
-          icon="mdi-compare-vertical"
-          size="small"
-          variant="outlined"
+        <v-col
+          align="center"
+          cols="12"
+          class="ma-0 pa-0"
         >
-          <v-tooltip
-            activator="parent"
-            location="top"
-          >
-            Scramble Entries
-          </v-tooltip>
-          <v-icon
-            center
+          <v-btn 
+            @click="previous"
+            icon="mdi-skip-previous"
+            size="small"
+            variant="outlined"
+            class="mr-2"
+            :disabled="timeState===0 || currentAgendaId===0"
+          />
+          <v-btn 
+            icon="mdi-play"
+            size="small"
+            @click="play"
+            v-if="timeState===0 || timeState===2"
+            variant="outlined"
+            class="mr-2"
+          />
+          <v-btn 
+            icon="mdi-pause"
+            @click="pause"
+            v-if="timeState===1"
+            size="small"
+            variant="outlined"
+            class="mr-2"
+          />
+          <v-btn 
+            icon="mdi-stop"
+            @click="stop"
+            size="small"
+            variant="outlined"
+            class="mr-2"
+            :disabled="timeState==0"
+          />
+          <v-btn 
+            @click="next(false)"
+            icon="mdi-skip-next"
+            size="small"
+            variant="outlined"
+            class="mr-2"
+            :disabled="timeState===0 || (currentAgendaId+2)>meeting.agenda.length"
+          />
+          <v-btn 
+            @click="scramble()"
             icon="mdi-compare-vertical"
-          ></v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+            size="small"
+            variant="outlined"
+          >
+            <v-tooltip
+              activator="parent"
+              location="top"
+            >
+              Scramble Entries
+            </v-tooltip>
+            <v-icon
+              center
+              icon="mdi-compare-vertical"
+            ></v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app-bar>
 
   <v-container
@@ -490,6 +490,16 @@ const scramble = () => {
     a[changePos+startPos] = a[randomNewPos+startPos];
     a[randomNewPos+startPos] = tempPos;
   }
+}
+
+/**
+ * Stop the timer and go back to the meeting list.
+ */
+const back = () => {
+  if (timeState.value != 0) {
+    stop()
+  }
+  router.push('/')
 }
 
 </script>
