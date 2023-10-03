@@ -68,8 +68,6 @@ Do not forget to save your changes after your modifications.
 
 You can delete a meeting by selecting the "trash" symbol in the meeting view.
 
-Attention: In the current version there is no further dialog. The meeting will be directly deleted from your local store.
-
 ## Start a Meeting
 
 ### Open the Meeting
@@ -78,7 +76,7 @@ Open your meeting from the meeting view by clicking on the meeting. Take care no
 Now you can do the following:
 * Modify (add/delete/move) you agenda without any impact on the stored meeting
 * You can change titles and times of agenda entries, too
-* You can change your meeting relevant settings via the hovering over the settings symbol on the top left corner
+* You can change your meeting relevant settings via the hovering over the settings symbol on the top right corner
 
 ### Start the Meeting
 
@@ -100,7 +98,7 @@ In case of new topics you can add them at the bottom of the meeting. You may hav
 
 ### Change Meeting settings
 
-You can change the meeting related settings directly from within the meetings view by hovering over the "setting" button on the top left.
+You can change the meeting related settings directly from within the meetings view by hovering over the "setting" button on the top right.
 
 Details about the options can be found in the "Settings" chapter. All changes are persistent and will be the same for the next meeting.
 
@@ -119,7 +117,7 @@ The end time of the meeting will be adjusted in case of
 
 ## Settings
 
-The settings view can be opened with the "Settings" button in bottom bar. Meeting relevant settings can be change directly from within the meetings view when hovering over the "Seetings" icon on the top left corner.
+The settings view can be opened with the "Settings" button in bottom bar. Meeting relevant settings can be change directly from within the meetings view when hovering over the "Seetings" icon on the top right corner.
 
 ### Theme
 

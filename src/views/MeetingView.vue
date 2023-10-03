@@ -4,6 +4,14 @@
   >
     <v-card-title align="center">Edit Meeting</v-card-title>
 
+    <v-btn
+      to="/"
+      icon="mdi-arrow-left"
+      density="compact"
+      variant="text"
+      style="position: absolute; top: 10px; left:10px"
+    />
+
     <v-row
       class="pa-0 ma-1"
     >
@@ -61,6 +69,10 @@
       class="ma-1"
     >
       <v-col align="right">
+        <v-btn
+          to="/"          
+          color="grey"
+        >Cancel</v-btn>&nbsp;
         <v-btn
           v-if="mRef.id==-1"
           @click="addMeeting"          

@@ -1,27 +1,16 @@
 <template>
-  <v-card
-    class="ma-2 pb-3 rounded-shaped bg-cardbg"
-  >
-    <v-card-title align="center">{{mRef.title}} - {{endTime}}</v-card-title>
+  <v-app-bar height="250">
+  <!-- <v-app-bar extended extension-height="80" density="prominent"> -->
+    <!-- Back Button -->
+    <v-btn
+      to="/"
+      icon="mdi-arrow-left"
+      density="compact"
+      variant="text"
+      style="position: absolute; top: 25px; left:10px"
+    />
 
-    <v-row>
-      <v-col 
-        align="center"
-      >
-        <v-progress-circular
-          :rotate="360"
-          :size="100"
-          :width="10"
-          :model-value="currentAgendaTimePercentage"
-          :color="currentAgendaTimeColor"
-          class="text-h6"
-        >
-          <b>{{ currentAgendaTime }}</b>
-        </v-progress-circular>
-
-      </v-col>
-    </v-row>
-
+    <!-- Agenda Options -->
     <v-menu
       open-on-hover
       location="start"
@@ -33,7 +22,7 @@
           icon="mdi-cog"
           density="compact"
           variant="text"
-          style="position: absolute; top: 10px; left:10px"
+          style="position: absolute; top: 25px; right:10px"
         />
       </template>
 
@@ -73,17 +62,47 @@
       </v-list>
     </v-menu>
 
-    <v-row>
-      <v-col align="center">
-          <b>{{ currentAgendaTitle }}</b>
-      </v-col>
-    </v-row>
+    <!-- Agenda Header -->
+    <v-container >
+      <!-- Title with end time -->
+      <v-row>
+        <v-col align="center">
+            <span class="text-h6">{{mRef.title}} - {{endTime}}</span>
+        </v-col>
+      </v-row>
 
-    <v-row v-if="id!=-1">
+      <!-- Clock -->
+      <v-row no-gutters>
+        <v-col 
+          align="center"
+        >
+          <v-progress-circular
+            :rotate="360"
+            :size="100"
+            :width="10"
+            :model-value="currentAgendaTimePercentage"
+            :color="currentAgendaTimeColor"
+            class="text-h6"
+          >
+            <b>{{ currentAgendaTime }}</b>
+          </v-progress-circular>
+
+        </v-col>
+      </v-row>
+
+      <!-- Title of current Agenda Entry -->
+      <v-row no-gutters>
+        <v-col align="center" class="mt-2">
+            <b>{{ currentAgendaTitle }}</b>
+        </v-col>
+      </v-row>
+
+      <!-- Action buttons -->
+      <v-row>
       <v-col
         align="center"
         cols="12"
-        class="ma-2 pa-2"
+        class="ma-0 pa-0"
       >
         <v-btn 
           @click="previous"
@@ -122,19 +141,43 @@
           icon="mdi-skip-next"
           size="small"
           variant="outlined"
+          class="mr-2"
           :disabled="timeState===0 || (currentAgendaId+2)>meeting.agenda.length"
         />
+        <v-btn 
+          @click="scramble()"
+          icon="mdi-compare-vertical"
+          size="small"
+          variant="outlined"
+        >
+          <v-tooltip
+            activator="parent"
+            location="top"
+          >
+            Scramble Entries
+          </v-tooltip>
+          <v-icon
+            center
+            icon="mdi-compare-vertical"
+          ></v-icon>
+        </v-btn>
       </v-col>
     </v-row>
+  </v-container>
+  </v-app-bar>
 
+  <v-container
+    class="ma-0 pa-1"
+  >
     <v-list
-      class="ma-0 pa-0 bg-cardbg"
+      class="ma-0 pa-0 bg-transparent"
     >
       <draggable
           v-model="mRef.agenda"
           handle=".handle"
           item-key="id"
           @change="adjustCurrentPositionAfterDragEvent"
+          v-bind="dragOptions"
         >
         <template #item="{ element }">
         <AgendaEntry
@@ -145,22 +188,24 @@
         </template>
       </draggable>
       <AgendaEntryNew
-          @add="addAgenda"
-        />
+        @add="addAgenda"
+      />
     </v-list>
-  </v-card>
+  </v-container>
+  
+  <!-- Dialog to show at end of meeting -->
   <v-dialog
       v-model="showDialog"
-    >
-      <v-card>
-        <v-card-text>
-          End of the meeting
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" block @click="showDialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+  >
+    <v-card>
+      <v-card-text>
+        End of the meeting
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" block @click="showDialog = false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
@@ -177,7 +222,7 @@ const route = useRoute()
 let id = (route.params && route.params.id) ? route.params.id : -1
 const meeting = store.getMeeting(id)
 
-const mRef = ref(meeting)
+const mRef = ref(meeting)   // reference to the meeting (agenda)
 
 const addAgenda = (agenda) => {
   mRef.value.agenda.push({title: agenda.title, time: agenda.time})
@@ -199,7 +244,7 @@ const timeChanged = (time) => {
 
 const router = useRouter()
 
-let currentAgenda
+let currentAgenda     // the current agenda entrie object; -1 if meeting has not been started
 let intervalPointer   // reference to the current setInterval method
 let currentTime = -1  // current rest time in seconds
 let currentAgendaNotified = false 
@@ -210,6 +255,13 @@ const currentAgendaTime = ref('00:00')
 const currentAgendaTimePercentage = ref(0)
 const currentAgendaTimeColor = ref('teal')
 const endTime = ref('00:00')
+
+const dragOptions = {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost"
+      }
 
 const play = () => {
   if (timeState.value === 0) {
@@ -411,6 +463,27 @@ const calculateEndTime = () => {
     let hours = currentEndTime.getHours()
     let minutes = currentEndTime.getMinutes()
     endTime.value = (hours<10?'0'+hours:hours) + ':' + (minutes<10?'0'+minutes:minutes)
+  }
+}
+
+/**
+ * Change the order of the agenda entries randomly.
+ * 
+ * In case the meeting has already been started, only the not already started entires are scrambled.
+ */
+const scramble = () => {
+  var startPos = 0  // all entries lager than this one will be scrambled
+  if (currentAgendaId.value!=-1) {
+    startPos = currentAgendaId.value + 1 // start after the active one
+  }
+  const a = mRef.value.agenda
+  const aLength = a.length - startPos
+  var randomNewPos, tempPos, changePos;
+  for (changePos = aLength - 1; changePos > 0; changePos--) {
+    randomNewPos = Math.floor(Math.random() * (changePos + 1));
+    tempPos = a[changePos+startPos];
+    a[changePos+startPos] = a[randomNewPos+startPos];
+    a[randomNewPos+startPos] = tempPos;
   }
 }
 
