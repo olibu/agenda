@@ -1,73 +1,78 @@
 <template>
   <v-app-bar height="250">
-  <!-- <v-app-bar extended extension-height="80" density="prominent"> -->
-    <!-- Back Button -->
-    <v-btn
-      to="/"
-      icon="mdi-arrow-left"
-      density="compact"
-      variant="text"
-      style="position: absolute; top: 25px; left:10px"
-    />
-
-    <!-- Agenda Options -->
-    <v-menu
-      open-on-hover
-      location="start"
-      class="ma-0 pa-0"
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-          v-bind="props"
-          icon="mdi-cog"
-          density="compact"
-          variant="text"
-          style="position: absolute; top: 25px; right:10px"
-        />
-      </template>
-
-      <v-list
-        class="ma-0 pa-0"
-      >
-        <v-list-item
-          class="ma-0 pa-0"
-        >
-          <v-checkbox
-            class="ma-0 pa-0"
-            v-model="store.soundOn"
-            label="Sound on"
-            hide-details
-          />
-        </v-list-item>
-        <v-list-item
-          class="ma-0 pa-0"
-        >
-          <v-checkbox
-            class="ma-0 pa-0 pr-2"
-            v-model="store.autoOn"
-            label="Automatic move to next agenda entry"
-            hide-details
-          />
-        </v-list-item>
-        <v-list-item
-          class="ma-0 pa-0"
-        >
-          <v-checkbox
-            class="ma-0 pa-0 pr-2"
-            v-model="store.adjustStartTime"
-            label="Adjust start time"
-            hide-details
-          />
-        </v-list-item>
-      </v-list>
-    </v-menu>
-
     <!-- Agenda Header -->
     <v-container >
-      <!-- Title with end time -->
-      <v-row>
-        <v-col align="center">
-            <span class="text-h6">{{mRef.title}} - {{endTime}}</span>
+      <v-row justify="center" align="center">
+        <!-- Back Button -->
+        <v-col cols="1">
+          <v-btn
+          to="/"
+          icon="mdi-arrow-left"
+          density="compact"
+          variant="text"
+          />
+        </v-col>
+        
+        <!-- Title with end time -->
+        <v-col align="center" cols="7">
+          <div class="text-h6 text-truncate">{{mRef.title}}</div>
+        </v-col>
+
+        <v-col align="center" cols="3">
+          <div class="text-h6">{{endTime}}</div>
+        </v-col>
+
+        <!-- Agenda Options -->
+        <v-col cols="1">
+          <v-menu
+            open-on-hover
+            location="start"
+            class="ma-0 pa-0"
+          >
+            <template v-slot:activator="{ props }">
+              <v-btn
+                v-bind="props"
+                icon="mdi-cog"
+                density="compact"
+                variant="text"
+              />
+            </template>
+
+            <v-list
+              class="ma-0 pa-0"
+            >
+              <v-list-item
+                class="ma-0 pa-0"
+              >
+                <v-checkbox
+                  class="ma-0 pa-0"
+                  v-model="store.soundOn"
+                  label="Sound on"
+                  hide-details
+                />
+              </v-list-item>
+              <v-list-item
+                class="ma-0 pa-0"
+              >
+                <v-checkbox
+                  class="ma-0 pa-0 pr-2"
+                  v-model="store.autoOn"
+                  label="Automatic move to next agenda entry"
+                  hide-details
+                />
+              </v-list-item>
+              <v-list-item
+                class="ma-0 pa-0"
+              >
+                <v-checkbox
+                  class="ma-0 pa-0 pr-2"
+                  v-model="store.adjustStartTime"
+                  label="Adjust start time"
+                  hide-details
+                />
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-col>
       </v-row>
 
