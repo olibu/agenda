@@ -79,7 +79,7 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
-### Next
+### V0.9.0
 
 * New: Drag animation added
 * New: Fixed Header in Meeting Timer and scrollable list of entries
