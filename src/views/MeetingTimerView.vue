@@ -92,7 +92,7 @@
 
       <!-- Title of current Agenda Entry -->
       <v-row no-gutters>
-        <v-col align="center" class="mt-2">
+        <v-col align="center" class="mt-2 text-truncate">
             <b>{{ currentAgendaTitle }}</b>
         </v-col>
       </v-row>
