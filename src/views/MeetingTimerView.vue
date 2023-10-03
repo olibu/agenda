@@ -1,7 +1,7 @@
 <template>
   <v-app-bar height="220">
     <!-- Agenda Header -->
-    <v-container >
+    <v-container fluid>
       <v-row justify="center" align="center">
         <!-- Back Button -->
         <v-col cols="1">
