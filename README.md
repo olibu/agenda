@@ -81,7 +81,11 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ### Next
 
-* Drag animation added
+* New: Drag animation added
+* New: Fixed Header in Meeting Timer and scrollable list of entries
+* Update: Latest libraries
+* Fix: End meeting in case of back navigation
+* Fix: Deletion of entries (end time calculation and sorting)
 
 ### V0.8.0
 
