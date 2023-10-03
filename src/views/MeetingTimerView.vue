@@ -2,7 +2,7 @@
   <v-app-bar height="220">
     <!-- Agenda Header -->
     <v-container fluid>
-      <v-row justify="center" align="center">
+      <v-row justify="center" align="center" class="flex-nowrap">
         <!-- Back Button -->
         <v-col cols="1">
           <v-btn
@@ -14,11 +14,11 @@
         </v-col>
         
         <!-- Title with end time -->
-        <v-col align="center" cols="7">
+        <v-col align="left" cols="8">
           <div class="text-h6 text-truncate">{{mRef.title}}</div>
         </v-col>
 
-        <v-col align="center" cols="3">
+        <v-col align="right" cols="2">
           <div class="text-h6">{{endTime}}</div>
         </v-col>
 
@@ -98,10 +98,9 @@
       <!-- Action buttons -->
       <v-row>
         <v-col
-          align="center"
+          class="ma-0 pa-0 d-flex flex-nowrap justify-center"
           cols="12"
-          class="ma-0 pa-0"
-        >
+        ><v-container class="ma-0 pa-0 d-flex flex-nowrap justify-center">
           <v-btn 
             @click="previous"
             icon="mdi-skip-previous"
@@ -158,7 +157,7 @@
               center
               icon="mdi-compare-vertical"
             ></v-icon>
-          </v-btn>
+          </v-btn></v-container>
         </v-col>
       </v-row>
     </v-container>
