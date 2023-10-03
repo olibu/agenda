@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar height="250">
+  <v-app-bar height="220">
     <!-- Agenda Header -->
     <v-container >
       <v-row justify="center" align="center">
@@ -77,7 +77,7 @@
       </v-row>
 
       <!-- Clock -->
-      <v-row no-gutters>
+      <v-row no-gutters class="pt-1">
         <v-col 
           align="center"
         >
@@ -92,13 +92,6 @@
             <b>{{ currentAgendaTime }}</b>
           </v-progress-circular>
 
-        </v-col>
-      </v-row>
-
-      <!-- Title of current Agenda Entry -->
-      <v-row no-gutters>
-        <v-col align="center" class="mt-2 text-truncate">
-            <b>{{ currentAgendaTitle }}</b>
         </v-col>
       </v-row>
 
