@@ -67,6 +67,19 @@
 
     <v-row>
       <v-col class="align-self-center">  
+        Show start time of agenda entry
+      </v-col>
+      <v-col cols="5">
+        <v-checkbox
+            class="ma-0 pa-0 pr-2"
+            v-model="store.showStartTime"
+            hide-details
+          />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col class="align-self-center">  
       </v-col>
       <v-col cols="5">
       </v-col>
