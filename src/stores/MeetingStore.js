@@ -40,6 +40,9 @@ export const useMeetingStore = defineStore('MeetingStore', {
         return meeting
       }
       let meeting = this.meetings.find((meeting) => meeting.id === id)
+      if (!meeting.starttime) {
+        meeting.starttime = '09:00'
+      }
       return JSON.parse(JSON.stringify(meeting))
     },
     addMeeting(meeting) {
