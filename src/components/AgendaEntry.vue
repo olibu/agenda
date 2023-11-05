@@ -5,6 +5,16 @@
     v-bind:class="interactiveBgColor()"
   >
     <v-text-field
+      v-if="store.showStartTime"
+      density="compact"
+      variant="outlined"
+      hide-details="auto"
+      class="w80px pr-1"
+      v-model="props.agenda.starttime"
+      readonly
+      tabindex="-1"
+    />
+    <v-text-field
       label="title"
       density="compact"
       variant="outlined"
@@ -43,6 +53,9 @@
 
 <script setup>
 import { watch } from 'vue'
+import { useMeetingStore } from '@/stores/MeetingStore.js'
+
+const store = useMeetingStore()
 
 const props = defineProps(['agenda'])
 

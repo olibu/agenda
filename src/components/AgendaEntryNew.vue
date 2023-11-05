@@ -3,6 +3,15 @@
     class="pa-2 ma-1 rounded-lg d-flex flex-nowrap bg-newentry"
     align="center"
   >
+  <v-text-field
+      v-if="store.showStartTime"
+      density="compact"
+      variant="outlined"
+      hide-details="auto"
+      class="w80px pr-1"
+      readonly
+      tabindex="-1"
+    />
     <v-text-field
       label="title"
       density="compact"
@@ -41,6 +50,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useMeetingStore } from '@/stores/MeetingStore.js'
+
+const store = useMeetingStore()
 
 const title = ref('')
 const time = ref(0)

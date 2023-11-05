@@ -16,7 +16,7 @@
       class="pa-0 ma-1"
     >
       <v-col
-        cols="10"
+        :cols="store.showStartTime?8:10"
         class="pa-1"
       >
         <v-text-field
@@ -26,6 +26,21 @@
           label="Meetingtitle"
           density="compact"
           autofocus
+        />
+      </v-col>
+      <v-col
+        v-if="store.showStartTime"
+        cols="2"
+        class="pl-0 pt-1 pb-1 pr-1"
+      >
+        <v-text-field
+          hide-details="auto"
+          variant="outlined"
+          v-model="mRef.starttime"
+          density="compact"
+          label="start time"
+          @change="updateStartTime"
+          :rules="startTimeRules"
         />
       </v-col>
       <v-col
@@ -89,7 +104,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
 import AgendaEntryNew from '@/components/AgendaEntryNew.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -113,19 +128,22 @@ watch(() => route.params.id, (newValue, oldValue) => {
 })
 
 const addAgenda = (agenda) => {
-  mRef.value.agenda.push({title: agenda.title, time: agenda.time})
+  mRef.value.agenda.push({title: agenda.title, time: agenda.time, starttime: agenda.starttime})
   mRef.value.time = mRef.value.time + agenda.time
+  updateStartTime()
 }
 
 const deleteAgenda = (agenda) => {
   // delete agenda if it is not the last one
   let pos = mRef.value.agenda.findIndex((a) => a === agenda)
   mRef.value.agenda.splice(pos, 1)
+  updateStartTime()
 }
 
 const timeChanged = (time) => {
   mRef.value.time = mRef.value.time - time.oldTime
   mRef.value.time = mRef.value.time + time.newTime
+  updateStartTime()
 }
 
 const router = useRouter()
@@ -139,4 +157,61 @@ const saveMeeting = () => {
   store.saveMeeting(mRef.value)
   router.push(`/`)
 }
+
+/**
+ * Updates the start time of every agenda entries starttime attribute.
+ */
+const updateStartTime = () => {
+  let time = new Date()
+  let hourMinute = parseTime(mRef.value.starttime)
+  if (hourMinute) {
+    time.setHours(hourMinute[0])
+    time.setMinutes(hourMinute[1])
+    for (let agenda of mRef.value.agenda) {
+      agenda.starttime = formatTime(time)
+      time = new Date(time.getTime() + (agenda.time * 60000))
+    }
+  }
+}
+
+onMounted(() => {
+  updateStartTime()
+})
+
+const parseTime = (time) => {
+  if (!time) {
+    return
+  }
+  let pos = time.indexOf(':')
+  if (pos==-1) {
+    return
+  }
+  try {
+    let hour = parseInt(time.substring(0, pos))
+    let minute = parseInt(time.substring(pos+1))
+    return [hour, minute]
+
+  } catch (e) {
+    return
+  }
+}
+
+const formatTime = (time) => {
+  let result = ''
+  let hours = time.getHours()
+  if (hours < 10) {
+    result += '0'
+  }
+  result += hours + ':'
+  let minutes = time.getMinutes()
+  if (minutes < 10) {
+    result += '0'
+  }
+  result += minutes
+  return result
+}
+
+const startTimeRules = [
+  v => parseTime(v)!=undefined
+]
 </script>

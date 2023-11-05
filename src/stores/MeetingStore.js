@@ -34,6 +34,7 @@ export const useMeetingStore = defineStore('MeetingStore', {
           id: -1,
           title: '',
           time: 0,
+          starttime: '09:00',
           agenda: [],
         }
         return meeting
