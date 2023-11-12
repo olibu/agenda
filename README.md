@@ -79,6 +79,10 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.10.0
+
+* New: Optional view of start time for each agenda entry
+
 ### V0.9.0
 
 * New: Drag animation added
