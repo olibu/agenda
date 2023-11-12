@@ -71,6 +71,16 @@
                   hide-details
                 />
               </v-list-item>
+              <v-list-item
+                class="ma-0 pa-0"
+              >
+                <v-checkbox
+                  class="ma-0 pa-0 pr-2"
+                  v-model="store.showStartTime"
+                  label="Show start time of agenda entries"
+                  hide-details
+                />
+              </v-list-item>
             </v-list>
           </v-menu>
         </v-col>
@@ -206,7 +216,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import AgendaEntry from '@/components/AgendaEntry.vue'
 import AgendaEntryNew from '@/components/AgendaEntryNew.vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -265,6 +275,7 @@ const dragOptions = {
       }
 
 const play = () => {
+  let now = new Date()           // the start date of the meeting
   if (timeState.value === 0) {
     currentAgendaId.value = 0
     currentAgenda = mRef.value.agenda[currentAgendaId.value]
@@ -280,6 +291,7 @@ const play = () => {
       }
       if (currentTime> adjustment) {
         currentTime = currentTime - adjustment
+        now = new Date(now.getTime() - adjustment * 1000)
       }
     }
     currentAgenda.isActive = true
@@ -289,6 +301,7 @@ const play = () => {
     startTimer()
   }
   timeState.value = 1
+  updateStartTime(parseTime(formatTime(now)))
   calculateEndTime()
 }
 
@@ -319,6 +332,8 @@ const previous = () => {
     currentAgenda = mRef.value.agenda[currentAgendaId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
+    // set the current time for the started agenda entry
+    currentAgenda.starttime = formatTime(new Date())
     currentAgenda.isActive = true
     calculateEndTime()
   }
@@ -336,6 +351,8 @@ const next = (triggeredAutomatically) => {
     currentAgenda = mRef.value.agenda[currentAgendaId.value]
     currentAgendaTitle.value = currentAgenda.title
     currentTime = currentAgenda.time * 60
+    // set the current time for the started agenda entry
+    currentAgenda.starttime = formatTime(new Date())
     currentAgenda.isActive = true
     if (triggeredAutomatically) {
       playAgendaEnd()
@@ -432,16 +449,25 @@ const showDialog = ref(false)
 const adjustCurrentPositionAfterDragEvent = (e) => {
   if (currentAgendaId.value!=-1) {
     if (e.moved.oldIndex > currentAgendaId.value && e.moved.newIndex <= currentAgendaId.value ) {
+      // element moved before the current active entry
+      mRef.value.agenda[e.moved.newIndex].starttime = '--:--'
       currentAgendaId.value += 1 
     }
     else if (e.moved.oldIndex < currentAgendaId.value && e.moved.newIndex >= currentAgendaId.value ) {
+      // element moved behind the current active entry
       currentAgendaId.value -= 1 
     }
     else if (e.moved.oldIndex === currentAgendaId.value) {
       if (e.moved.newIndex < e.moved.oldIndex) {
+        // current active entry has been moved up
         currentAgendaId.value -= (e.moved.oldIndex - e.moved.newIndex)
       }
       else if (e.moved.newIndex > e.moved.oldIndex) {
+        // current active entry has been moved down
+        for (let i = e.moved.oldIndex; i < e.moved.newIndex; i++) {
+          // mark all skipped entries as invalid
+          mRef.value.agenda[i].starttime = '--:--'
+        }
         currentAgendaId.value += (e.moved.newIndex - e.moved.oldIndex) 
       }
     }
@@ -455,11 +481,16 @@ const adjustCurrentPositionAfterDragEvent = (e) => {
 const calculateEndTime = () => {
   if (timeState.value !== 0) { // only if the timer is running
     let currentEndTime = new Date()
-    let restOfMeeting = currentTime
+    let restOfMeeting = currentTime   // seconds until the meeting ends
     if (currentTime<0) {
       restOfMeeting = 0
     }
     for (let i=currentAgendaId.value+1; i<mRef.value.agenda.length; i++) {
+      // update the start time of each agenda entry not already started
+      let nextStartTime = new Date(currentEndTime.getTime() + restOfMeeting * 1000)
+      mRef.value.agenda[i].starttime = formatTime(nextStartTime)
+
+      // add the time of the current agenda entry to the rest time of the meeting
       restOfMeeting += (mRef.value.agenda[i].time * 60)
     }
     currentEndTime.setSeconds(currentEndTime.getSeconds() + restOfMeeting)
@@ -469,6 +500,55 @@ const calculateEndTime = () => {
     endTime.value = (hours<10?'0'+hours:hours) + ':' + (minutes<10?'0'+minutes:minutes)
   }
 }
+
+/**
+ * Updates the start time of every agenda entries starttime attribute.
+ */
+ const updateStartTime = (hourMinute) => {
+  let time = new Date()
+  if (hourMinute) {
+    time.setHours(hourMinute[0])
+    time.setMinutes(hourMinute[1])
+    for (let agenda of mRef.value.agenda) {
+      agenda.starttime = formatTime(time)
+      time = new Date(time.getTime() + (agenda.time * 60000))
+    }
+  }
+}
+
+const formatTime = (time) => {
+  let result = ''
+  let hours = time.getHours()
+  if (hours < 10) {
+    result += '0'
+  }
+  result += hours + ':'
+  let minutes = time.getMinutes()
+  if (minutes < 10) {
+    result += '0'
+  }
+  result += minutes
+  return result
+}
+
+const parseTime = (time) => {
+  if (!time) {
+    return
+  }
+  let pos = time.indexOf(':')
+  if (pos==-1) {
+    return
+  }
+  try {
+    let hour = parseInt(time.substring(0, pos))
+    let minute = parseInt(time.substring(pos+1))
+    return [hour, minute]
+
+  } catch (e) {
+    return
+  }
+}
+
 
 /**
  * Change the order of the agenda entries randomly.
@@ -500,5 +580,18 @@ const back = () => {
   }
   router.push('/')
 }
+
+onMounted(() => {
+  updateStartTime(parseTime(mRef.value.starttime))
+  if (mRef.value.agenda.length>0) {
+    let lastEntry = mRef.value.agenda[mRef.value.agenda.length-1]
+    let lastEntryTime = parseTime(lastEntry.starttime)
+    let time = new Date()
+    time.setHours(lastEntryTime[0])
+    time.setMinutes(lastEntryTime[1])
+    time = new Date(time.getTime()+lastEntry.time*60000)
+    endTime.value = formatTime(time)
+  }
+})
 
 </script>
