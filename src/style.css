@@ -88,3 +88,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.w80px {
+  max-width: 80px;
+}

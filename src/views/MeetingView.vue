@@ -13,50 +13,36 @@
     />
 
     <v-row
-      class="pa-0 ma-1"
+      class="pa-0 ma-1 d-flex flex-nowrap"
     >
-      <v-col
-        :cols="store.showStartTime?8:10"
-        class="pa-1"
-      >
-        <v-text-field
-          v-model="mRef.title"
-          hide-details="auto"
-          variant="outlined"
-          label="Meetingtitle"
-          density="compact"
-          autofocus
-        />
-      </v-col>
-      <v-col
-        v-if="store.showStartTime"
-        cols="2"
-        class="pl-0 pt-1 pb-1 pr-1"
-      >
-        <v-text-field
-          hide-details="auto"
-          variant="outlined"
-          v-model="mRef.starttime"
-          density="compact"
-          label="start time"
-          @change="updateStartTime"
-          :rules="startTimeRules"
-        />
-      </v-col>
-      <v-col
-        cols="2"
-        class="pl-0 pt-1 pb-1 pr-1"
-      >
-        <v-text-field
-          hide-details="auto"
-          variant="outlined"
-          v-model="mRef.time"
-          density="compact"
-          label="duration"
-          type="number"
-          disabled
-        />
-      </v-col>
+      <v-text-field
+        v-model="mRef.title"
+        hide-details="auto"
+        variant="outlined"
+        label="Meetingtitle"
+        density="compact"
+        autofocus
+      />
+      <v-text-field
+        hide-details="auto"
+        variant="outlined"
+        v-model="mRef.starttime"
+        density="compact"
+        label="start time"
+        @change="updateStartTime"
+        :rules="startTimeRules"
+        class="w80px pl-1"
+      />
+      <v-text-field
+        hide-details="auto"
+        variant="outlined"
+        v-model="mRef.time"
+        density="compact"
+        label="duration"
+        type="number"
+        class="w80px pl-1"
+        disabled
+      />
     </v-row>
 
     <v-list

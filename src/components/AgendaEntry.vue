@@ -89,7 +89,4 @@ const deleteAgendaEntry = () => {
   .move {
     cursor: move;
   }
-  .w80px {
-    max-width: 80px;
-  }
 </style>
