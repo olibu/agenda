@@ -24,6 +24,7 @@
         autofocus
       />
       <v-text-field
+        v-if="store.showStartTime"
         hide-details="auto"
         variant="outlined"
         v-model="mRef.starttime"
