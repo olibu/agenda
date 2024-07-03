@@ -63,9 +63,9 @@ const emit = defineEmits(['add'])
 const addAgenda = () => {
   emit('add', {title: title.value, time: parseInt(time.value)})
   title.value = ''
-  time.value = 0
+  time.value = 2 // Set default timeslot to two minutes
   titleRef.value.focus()
-}
+} 
 
 const checkEnter = (e) => {
     addAgenda()
