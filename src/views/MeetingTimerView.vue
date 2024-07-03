@@ -201,7 +201,7 @@
   </v-container>
 
   <!-- Dialog to show at end of meeting -->
-  <v-dialog
+  <v-dialog width="50%"
       v-model="showDialog"
   >
     <v-card>
@@ -210,6 +210,20 @@
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" block @click="showDialog = false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+
+  <v-dialog width="50%"
+      v-model="showNoShuffleDialog"
+  >
+    <v-card>
+      <v-card-text>
+        Randomizing topics function is not available during running meeting.
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" block @click="showNoShuffleDialog = false">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -445,6 +459,7 @@ const playMeetingEnd = () => {
 }
 
 const showDialog = ref(false)
+const showNoShuffleDialog = ref(false)
 
 const adjustCurrentPositionAfterDragEvent = (e) => {
   if (currentAgendaId.value!=-1) {
@@ -555,6 +570,7 @@ const parseTime = (time) => {
  * 
  * In case the meeting has already been started, only the not already started entires are scrambled.
  */
+/** 
 const scramble = () => {
   var startPos = 0  // all entries lager than this one will be scrambled
   if (currentAgendaId.value!=-1) {
@@ -569,6 +585,29 @@ const scramble = () => {
     a[changePos+startPos] = a[randomNewPos+startPos];
     a[randomNewPos+startPos] = tempPos;
   }
+}
+*/
+
+const scramble = () => {
+  if (timeState.value != 0 ) // Deny if meeting is already running
+  {
+     showNoShuffleDialog.value = true
+     return;
+  }
+ 
+  shuffleArray(mRef.value.agenda)
+}
+
+/**
+ * Shuffles every given array
+ * 
+ * @param array Array to shuffle
+ */
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
 /**
