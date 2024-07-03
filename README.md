@@ -79,6 +79,13 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+
+### V0.11.0
+* Fix: New Shuffle algorithm
+* Update: set message-box width to 60% of the screen size
+* Update: Shuffle is no more possible during active meeting
+* Update: Set default Timeslot counter to 2 minutes insted of 0
+
 ### V0.10.0
 
 * New: Optional view of start time for each agenda entry
