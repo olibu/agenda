@@ -6,14 +6,14 @@ Agenda is a browser based standalone tool to track the time table of meetings.
 
 You can use the tool directly from [my github page](https://olibu.github.io/agenda).
 
-If you want to use the app without internet connection you can install it from your browser. In Chome you will see an "Install Agenda" button in the addressbar. On iOS you can simply add the page to your home screen. For more details search for "PWA installation" in the internet. 
+If you want to use the app without internet connection you can install it from your browser. In Chrome you will see an "Install Agenda" button in the addressbar. On iOS you can simply add the page to your home screen. For more details search for "PWA installation" in the internet. 
 
 You will be informed in case of new releases published to my github page within the app.
 
-You might ask why there is another tool like this. And you are right. There are already a lot of tools with this functionallity.
+You might ask why there is another tool like this. And you are right. There are already a lot of tools with this functionality.
 
 I really love the [Online Timer App](https://webuhr.de/timer/). I used it very often for standup meetings.
-For more complex meetings I like the [Timebocks App](https://timeblocks.co/). Timeblocks is a closed source free to use for non-commercial. This makes it somehow unattractive for me. It looks great but it seems to get commercial somewhen.
+For more complex meetings I like the [Timeblocks App](https://timeblocks.co/). Timeblocks is a closed source free to use for non-commercial. This makes it somehow unattractive for me. It looks great but it seems to get commercial somewhen.
 
 However, some functions are missing in those tools. As they are not open source, I had to created my own one.
 
@@ -27,7 +27,7 @@ The tool is mentioned the be intuitive.
 
 ![Darkmode on MacOS](doc/start_meeting.gif)
 
-Just start the tool, create a meeting and add a timeslot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
+Just start the tool, create a meeting and add a time slot for each agenda entry. When the meeting starts you can click at the play button to start the timer. As soon as an agenda entry will run out of time you will be notified about it and you can switch to the next agenda entry. In case of "automatic mode", this is done by the tool automatically.
 
 The meeting agendas will be stored in your browser only. There is no cloud used. Only the page is provided through a cloud service as static files.
 
@@ -145,13 +145,13 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 * Navigation (previous/next)
 * Agenda time in minutes and seconds
 * Sound added
-* Option to deactivate automatice switch to next agenda entry
+* Option to deactivate automatic switch to next agenda entry
 * Remove difference between last full hour/half hour and current time from first agenda entry
 
 ### V0.2.0
 
 * Timer added
-* New: PWA (askes for) updates automatically after restart
+* New: PWA (asks for) updates automatically after restart
 
 ### V0.1.2
 
@@ -161,7 +161,7 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 ### V0.1.1
 
 Initial version with the following basic features
-* List of meetings with delete functionallity
+* List of meetings with delete functionality
 * Create new meetings
 * Application can be used offline
 
@@ -185,6 +185,6 @@ Agenda is licensed under the [MIT License](https://tldrlegal.com/l/mit)
 
 Free Sound Effects Site.
 
-Licence: License: Attribution 4.0 International (CC BY 4.0). You are allowed to use sound effects free of charge and royalty free in your multimedia projects for commercial or non-commercial purposes.
+License: Attribution 4.0 International (CC BY 4.0). You are allowed to use sound effects free of charge and royalty free in your multimedia projects for commercial or non-commercial purposes.
 
 http://www.freesoundslibrary.com

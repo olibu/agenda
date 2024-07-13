@@ -268,11 +268,11 @@ const currentAgendaTimeColor = ref('teal')
 const endTime = ref('00:00')
 
 const dragOptions = {
-        animation: 200,
-        group: "description",
-        disabled: false,
-        ghostClass: "ghost"
-      }
+  animation: 200,
+  group: "description",
+  disabled: false,
+  ghostClass: "ghost"
+}
 
 const play = () => {
   let now = new Date()           // the start date of the meeting
@@ -504,7 +504,7 @@ const calculateEndTime = () => {
 /**
  * Updates the start time of every agenda entries starttime attribute.
  */
- const updateStartTime = (hourMinute) => {
+const updateStartTime = (hourMinute) => {
   let time = new Date()
   if (hourMinute) {
     time.setHours(hourMinute[0])
@@ -544,6 +544,7 @@ const parseTime = (time) => {
     let minute = parseInt(time.substring(pos+1))
     return [hour, minute]
 
+  // eslint-disable-next-line no-unused-vars
   } catch (e) {
     return
   }

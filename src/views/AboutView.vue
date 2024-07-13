@@ -19,5 +19,6 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line no-undef
 const version = __APP_VERSION__
 </script>

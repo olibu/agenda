@@ -67,15 +67,15 @@ const addAgenda = () => {
   titleRef.value.focus()
 }
 
-const checkEnter = (e) => {
-    addAgenda()
+const checkEnter = () => {
+  addAgenda()
 }
 </script>
 <style>
-  .h-align {
-    text-align: center;
-  }
-  .w80px {
-    max-width: 80px;
-  }
+.h-align {
+  text-align: center;
+}
+.w80px {
+  max-width: 80px;
+}
 </style>

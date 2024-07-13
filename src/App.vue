@@ -38,12 +38,12 @@
 </template>
 
 <script setup>
-  import ReloadPrompt from './components/ReloadPrompt.vue';
-  import { useMeetingStore } from '@/stores/MeetingStore.js'
-  import { useTheme } from 'vuetify'
+import ReloadPrompt from './components/ReloadPrompt.vue';
+import { useMeetingStore } from '@/stores/MeetingStore.js'
+import { useTheme } from 'vuetify'
 
-  const store = useMeetingStore()
+const store = useMeetingStore()
 
-  store.refreshTheme(useTheme())
+store.refreshTheme(useTheme())
 
 </script>

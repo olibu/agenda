@@ -111,7 +111,6 @@
           <v-color-picker
             dot-size="13"
             mode="hex"
-            model-value="hex"
           />
         </div>
         <v-card-actions>
@@ -137,55 +136,54 @@
 </template>
 
 <script setup>
-  import { useMeetingStore } from '@/stores/MeetingStore.js'
-  import { useTheme } from 'vuetify'
-  import { ref, watch } from 'vue'
+import { useMeetingStore } from '@/stores/MeetingStore.js'
+import { useTheme } from 'vuetify'
+import { ref, watch } from 'vue'
 
-  const store = useMeetingStore()
+const store = useMeetingStore()
 
-  const vTheme = useTheme()
+const vTheme = useTheme()
 
-  watch(() => store.theme, (newValue, oldValue) => {
-    let themeSetting = newValue
-    if (themeSetting === 'os') {
-      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-      if (prefersDarkScheme.matches) {
-        themeSetting = 'dark';
-      } else {
-        themeSetting = 'light';
-      }
+watch(() => store.theme, (newValue) => {
+  let themeSetting = newValue
+  if (themeSetting === 'os') {
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (prefersDarkScheme.matches) {
+      themeSetting = 'dark';
+    } else {
+      themeSetting = 'light';
     }
-  
-    vTheme.global.name.value = themeSetting
-  })
-
-  /**
-   * Theme editor
-   */
-
-  const editorDlg = ref(false)
-  const customTheme = ref('')
-  const hex = ref('#000000')
-
-  const openThemeEditor = () => {
-    if (store.theme === 'customDark') {
-      customTheme.value = JSON.stringify(store.customThemeD, ' ', 2)
-    }
-    else {
-      customTheme.value = JSON.stringify(store.customThemeL, ' ', 2)
-    }
-    editorDlg.value = true
   }
 
-  const saveColors = () => {
-    if (store.theme === 'customDark') {
-      store.customThemeD = JSON.parse(customTheme.value)
-    }
-    else {
-      store.customThemeL = JSON.parse(customTheme.value)
-    }
-    store.refreshTheme(vTheme)
+  vTheme.global.name.value = themeSetting
+})
+
+/**
+ * Theme editor
+ */
+
+const editorDlg = ref(false)
+const customTheme = ref('')
+
+const openThemeEditor = () => {
+  if (store.theme === 'customDark') {
+    customTheme.value = JSON.stringify(store.customThemeD, ' ', 2)
   }
+  else {
+    customTheme.value = JSON.stringify(store.customThemeL, ' ', 2)
+  }
+  editorDlg.value = true
+}
+
+const saveColors = () => {
+  if (store.theme === 'customDark') {
+    store.customThemeD = JSON.parse(customTheme.value)
+  }
+  else {
+    store.customThemeL = JSON.parse(customTheme.value)
+  }
+  store.refreshTheme(vTheme)
+}
 
 </script>
 

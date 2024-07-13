@@ -14,9 +14,8 @@
           @click.self="openMeeting(meeting.id)"
         >
           <v-list-item-title
-            v-text="meeting.title"
             @click.self="openMeeting(meeting.id)"
-          ></v-list-item-title>
+          >{{meeting.title}}</v-list-item-title>
 
           <template v-slot:append>
             <v-btn

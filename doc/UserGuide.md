@@ -21,12 +21,12 @@ Now you can start the application as any other locally installed application.
 ## Offline Installation on iOS
 
 As any other PWA application you can install this application by opening the URL in Safari.
-Then click on the share button of Safari and select "Add to homescreen". 
+Then click on the share button of Safari and select "Add to home screen". 
 
 ![installation iOS 1](ios_install1.PNG)
 ![installation iOS 2](ios_install2.PNG)
 
-Now you can start the application from your homescreen even if you do not have an internet connection.
+Now you can start the application from your home screen even if you do not have an internet connection.
 
 ![installation iOS 3](ios_install3.png)
 
@@ -46,7 +46,7 @@ An empty meeting will be show, but not already created. You have to press the "A
 
 ![New Meeting](new_meeting.gif)
 
-You have to set the "Meetingtitle" first. Then you can press tab to move to the first agenda entry.
+You have to set the "meeting title" first. Then you can press tab to move to the first agenda entry.
 Set a title and move to the time (in minutes). You can add the agenda entry via <enter> or by the "+" button.
 After adding an agenda entry a new placeholder for the next agenda entry will be created and you can continue to add further meetings.
 
@@ -85,7 +85,7 @@ The first agenda entry will be highlighted. Dependent on your meeting settings, 
 
 As soon as the time is near to the end, the color of the count down cycle will change.
 
-In case of "automatic movement" the next agenda entry will be activated. Otherwise the color of the count down cylcle will change to red and the additional time will be added to the end time of the meeting.
+In case of "automatic movement" the next agenda entry will be activated. Otherwise the color of the count down cycle will change to red and the additional time will be added to the end time of the meeting.
 Thus you will be able to see when the meeting will end in case your further agenda entries will be finished in time.
 
 If you are finished with an agenda entry earlier, you can move to the next one with the "next" button. In case you fall back to an earlier agenda entry you can click on the "previous" button.
@@ -117,7 +117,7 @@ The end time of the meeting will be adjusted in case of
 
 ## Settings
 
-The settings view can be opened with the "Settings" button in bottom bar. Meeting relevant settings can be change directly from within the meetings view when hovering over the "Seetings" icon on the top right corner.
+The settings view can be opened with the "Settings" button in bottom bar. Meeting relevant settings can be change directly from within the meetings view when hovering over the "Settings" icon on the top right corner.
 
 ### Theme
 
@@ -141,7 +141,7 @@ At the end of an agenda entry and at the end of the meeting a sound will be play
 
 ### Automatic move to next agenda entry
 
-At the end of an agenda entry the next one will be selected automatically. Otherwise the countdown circle will turn into read and a negative time will be shown. The addtional time will be added to the meeting time. Thus the time when the meeting will end is transparent to you. 
+At the end of an agenda entry the next one will be selected automatically. Otherwise the countdown circle will turn into read and a negative time will be shown. The additional time will be added to the meeting time. Thus the time when the meeting will end is transparent to you. 
 
 ### Adjust start time
 
@@ -159,5 +159,5 @@ The adjustment will only be done according to the duration of the first agenda e
 In case your first agenda entry is 5 min and you start the meeting at 9:06, nothing will be adjusted, as no "even" time within the last 5 min can be found. You would have the raise the duration to 10 min before starting the meeting in 
 this case.
 
-"Even" times means 30 min steps. 9:00, 9:30 and so on. Thus it would make sense to eather start the meeting in time
+"Even" times means 30 min steps. 9:00, 9:30 and so on. Thus it would make sense to ether start the meeting in time
 or to start you meeting with a "welcome" of 5 to 10 min (especially if you have very short agenda entries). 

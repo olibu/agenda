@@ -106,7 +106,7 @@ let id = (route.params && route.params.id) ? route.params.id : -1
 
 const mRef = ref(store.getMeeting(id))
 
-watch(() => route.params.id, (newValue, oldValue) => {
+watch(() => route.params.id, (newValue) => {
   if (newValue) {
     id = newValue
     let meeting = store.getMeeting(id)
@@ -178,6 +178,7 @@ const parseTime = (time) => {
     let minute = parseInt(time.substring(pos+1))
     return [hour, minute]
 
+  // eslint-disable-next-line no-unused-vars
   } catch (e) {
     return
   }
