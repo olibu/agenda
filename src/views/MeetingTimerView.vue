@@ -12,7 +12,7 @@
             variant="text"
           />
         </v-col>
-        
+
         <!-- Title with end time -->
         <v-col align="left" cols="8">
           <div class="text-h6 text-truncate">{{mRef.title}}</div>
@@ -88,7 +88,7 @@
 
       <!-- Clock -->
       <v-row no-gutters class="pt-1">
-        <v-col 
+        <v-col
           align="center"
         >
           <v-progress-circular
@@ -111,7 +111,7 @@
           class="ma-0 pa-0 d-flex flex-nowrap justify-center"
           cols="12"
         ><v-container class="ma-0 pa-0 d-flex flex-nowrap justify-center">
-          <v-btn 
+          <v-btn
             @click="previous"
             icon="mdi-skip-previous"
             size="small"
@@ -119,7 +119,7 @@
             class="mr-2"
             :disabled="timeState===0 || currentAgendaId===0"
           />
-          <v-btn 
+          <v-btn
             icon="mdi-play"
             size="small"
             @click="play"
@@ -127,7 +127,7 @@
             variant="outlined"
             class="mr-2"
           />
-          <v-btn 
+          <v-btn
             icon="mdi-pause"
             @click="pause"
             v-if="timeState===1"
@@ -135,7 +135,7 @@
             variant="outlined"
             class="mr-2"
           />
-          <v-btn 
+          <v-btn
             icon="mdi-stop"
             @click="stop"
             size="small"
@@ -143,7 +143,7 @@
             class="mr-2"
             :disabled="timeState==0"
           />
-          <v-btn 
+          <v-btn
             @click="next(false)"
             icon="mdi-skip-next"
             size="small"
@@ -151,7 +151,7 @@
             class="mr-2"
             :disabled="timeState===0 || (currentAgendaId+2)>meeting.agenda.length"
           />
-          <v-btn 
+          <v-btn
             @click="scramble()"
             icon="mdi-compare-vertical"
             size="small"
@@ -258,7 +258,7 @@ const router = useRouter()
 let currentAgenda     // the current agenda entrie object; -1 if meeting has not been started
 let intervalPointer   // reference to the current setInterval method
 let currentTime = -1  // current rest time in seconds of the active entry
-let currentAgendaNotified = false 
+let currentAgendaNotified = false
 const timeState = ref(0)  // 0: off; 1: running 2: paused
 const currentAgendaId = ref(-1)   // ref to the current active agenda point
 const currentAgendaTitle = ref('-')
@@ -451,11 +451,11 @@ const adjustCurrentPositionAfterDragEvent = (e) => {
     if (e.moved.oldIndex > currentAgendaId.value && e.moved.newIndex <= currentAgendaId.value ) {
       // element moved before the current active entry
       mRef.value.agenda[e.moved.newIndex].starttime = '--:--'
-      currentAgendaId.value += 1 
+      currentAgendaId.value += 1
     }
     else if (e.moved.oldIndex < currentAgendaId.value && e.moved.newIndex >= currentAgendaId.value ) {
       // element moved behind the current active entry
-      currentAgendaId.value -= 1 
+      currentAgendaId.value -= 1
     }
     else if (e.moved.oldIndex === currentAgendaId.value) {
       if (e.moved.newIndex < e.moved.oldIndex) {
@@ -468,7 +468,7 @@ const adjustCurrentPositionAfterDragEvent = (e) => {
           // mark all skipped entries as invalid
           mRef.value.agenda[i].starttime = '--:--'
         }
-        currentAgendaId.value += (e.moved.newIndex - e.moved.oldIndex) 
+        currentAgendaId.value += (e.moved.newIndex - e.moved.oldIndex)
       }
     }
     calculateEndTime()
@@ -553,7 +553,7 @@ const parseTime = (time) => {
 
 /**
  * Change the order of the agenda entries randomly.
- * 
+ *
  * In case the meeting has already been started, only the not already started entires are scrambled.
  */
 const scramble = () => {

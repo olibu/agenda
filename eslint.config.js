@@ -5,9 +5,9 @@ import stylistic from '@stylistic/eslint-plugin'
 
 export default [
   { files: ["**/*.{js,mjs,cjs,vue}"] },
-  { 
-    languageOptions: { 
-      globals: globals.browser 
+  {
+    languageOptions: {
+      globals: globals.browser
     },
     plugins: {
       '@stylistic': stylistic
@@ -15,7 +15,9 @@ export default [
     rules: {
       'indent': ['error', 2],
       '@stylistic/indent': ['error', 2],
-    } 
+      "no-trailing-spaces": [ "error" ],
+      "linebreak-style": [ "error", "unix" ],
+    },
   },
   pluginJs.configs.recommended,
   ...pluginVue.configs["flat/essential"],

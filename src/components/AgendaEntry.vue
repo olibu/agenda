@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <v-row
     class="pa-2 ma-1 rounded-lg d-flex flex-nowrap"

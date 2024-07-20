@@ -15,7 +15,7 @@
           density="compact"
           hide-details
         />
-        <v-btn 
+        <v-btn
           icon="mdi-pencil"
           variant="text"
           density="compact"
@@ -40,7 +40,7 @@
     </v-row>
 
     <v-row>
-      <v-col class="align-self-center">  
+      <v-col class="align-self-center">
         Automatic move to next agenda entry
       </v-col>
       <v-col cols="5">
@@ -53,7 +53,7 @@
     </v-row>
 
     <v-row>
-      <v-col class="align-self-center">  
+      <v-col class="align-self-center">
         Adjust start time
       </v-col>
       <v-col cols="5">
@@ -66,7 +66,7 @@
     </v-row>
 
     <v-row>
-      <v-col class="align-self-center">  
+      <v-col class="align-self-center">
         Show start time of agenda entry
       </v-col>
       <v-col cols="5">
@@ -79,7 +79,7 @@
     </v-row>
 
     <v-row>
-      <v-col class="align-self-center">  
+      <v-col class="align-self-center">
       </v-col>
       <v-col cols="5">
       </v-col>

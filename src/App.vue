@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-bottom-navigation 
+    <v-bottom-navigation
       permanent
       rail
     >

@@ -72,17 +72,17 @@
     >
       <v-col align="right">
         <v-btn
-          to="/"          
+          to="/"
           color="grey"
         >Cancel</v-btn>&nbsp;
         <v-btn
           v-if="mRef.id==-1"
-          @click="addMeeting"          
+          @click="addMeeting"
           color="secondary"
         >Add Meeting</v-btn>
         <v-btn
           v-if="mRef.id!=-1"
-          @click="saveMeeting"          
+          @click="saveMeeting"
           color="secondary"
         >Save Meeting</v-btn>
       </v-col>
