@@ -82,6 +82,7 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 ### V0.11.0
 
 * New: Version number from package.json
+* New: Eslint introduction
 
 ### V0.10.0
 
