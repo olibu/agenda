@@ -79,6 +79,10 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.11.1
+
+* Update: Latest libaries
+
 ### V0.11.0
 
 * New: Version number from package.json
