@@ -16,7 +16,7 @@ export default [
       'indent': ['error', 2],
       '@stylistic/indent': ['error', 2],
       "no-trailing-spaces": [ "error" ],
-      "linebreak-style": [ "error", "unix" ],
+      "linebreak-style": [ "error", "windows" ],
     },
   },
   pluginJs.configs.recommended,
