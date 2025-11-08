@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <v-row
     class="pa-2 ma-1 rounded-lg d-flex flex-nowrap"
@@ -11,7 +10,7 @@
       variant="outlined"
       hide-details="auto"
       class="w80px pr-1"
-      v-model="props.agenda.starttime"
+      :value="starttime"
       readonly
       tabindex="-1"
     />
@@ -20,19 +19,21 @@
       density="compact"
       variant="outlined"
       hide-details="auto"
-      v-model="agenda.title"
+      v-model="title"
       class="pr-1"
       :readonly="props.agenda && props.agenda.isActive"
+      @blur="emitUpdate"
     />
     <v-text-field
       label="min"
       density="compact"
       variant="outlined"
       hide-details="auto"
-      v-model="agenda.time"
+      v-model.number="timeLocal"
       type="number"
       class="w80px"
       :readonly="props.agenda && props.agenda.isActive"
+      @blur="onTimeChange"
     />
     <v-btn
       @click="deleteAgendaEntry"
@@ -53,23 +54,27 @@
 </template>
 
 <script setup>
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useMeetingStore } from '@/stores/MeetingStore.js'
 
 const store = useMeetingStore()
 
 const props = defineProps(['agenda'])
 
-const emit = defineEmits(['delete', 'timechange'])
+const emit = defineEmits(['delete', 'timechange', 'update'])
 
-watch(() => props.agenda.time, (newValue, oldValue) => {
-  let oldTime = parseInt(oldValue)
-  if (isNaN(oldTime)) { oldTime = 0}
-  let newTime = parseInt(newValue)
-  if (isNaN(newTime)) { newTime = 0}
+// Local copies of props to avoid mutating props directly
+const title = ref(props.agenda?.title ?? '')
+const timeLocal = ref(props.agenda?.time ?? 0)
+const starttime = ref(props.agenda?.starttime ?? '')
 
-  emit('timechange', {newTime, oldTime})
-})
+// Sync local copies when parent updates the agenda prop
+watch(() => props.agenda, (newVal) => {
+  if (!newVal) return
+  title.value = newVal.title
+  timeLocal.value = newVal.time
+  starttime.value = newVal.starttime
+}, { deep: true })
 
 const interactiveBgColor = () => {
   let bgColor = 'bg-agendaentry'
@@ -81,6 +86,24 @@ const interactiveBgColor = () => {
 
 const deleteAgendaEntry = () => {
   emit('delete', props.agenda)
+}
+
+const emitUpdate = () => {
+  const updated = {
+    ...props.agenda,
+    title: title.value,
+    time: parseInt(timeLocal.value) || 0,
+    starttime: starttime.value,
+  }
+  // provide original reference so parent can find and update the correct item
+  emit('update', { original: props.agenda, updated })
+}
+
+const onTimeChange = () => {
+  const oldTime = parseInt(props.agenda.time) || 0
+  const newTime = parseInt(timeLocal.value) || 0
+  emit('timechange', { newTime, oldTime })
+  emitUpdate()
 }
 </script>
 <style>

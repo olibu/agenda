@@ -191,6 +191,7 @@
           :agenda="element"
           @delete="deleteAgenda"
           @timechange="timeChanged"
+          @update="updateAgenda"
         />
         </template>
       </draggable>
@@ -251,6 +252,30 @@ const timeChanged = (time) => {
   mRef.value.time = mRef.value.time - time.oldTime
   mRef.value.time = mRef.value.time + time.newTime
   calculateEndTime()
+}
+
+const updateAgenda = ({ original, updated }) => {
+  const pos = mRef.value.agenda.findIndex((a) => a === original)
+  if (pos !== -1) {
+    // update in-place to preserve object identity
+    Object.assign(mRef.value.agenda[pos], updated)
+    // if the updated agenda is the currently active one, update local reference and title
+    if (currentAgendaId.value === pos) {
+      currentAgenda = mRef.value.agenda[pos]
+      currentAgendaTitle.value = currentAgenda.title
+    }
+    // recalc total meeting time
+    let total = 0
+    for (let a of mRef.value.agenda) {
+      total += (parseInt(a.time) || 0)
+    }
+    mRef.value.time = total
+    // if timer is running, update start/end times accordingly
+    if (timeState.value !== 0) {
+      updateStartTime()
+      calculateEndTime()
+    }
+  }
 }
 
 const router = useRouter()

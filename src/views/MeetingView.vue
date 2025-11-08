@@ -59,6 +59,7 @@
           :agenda="element"
           @delete="deleteAgenda"
           @timechange="timeChanged"
+          @update="updateAgenda"
         />
         </template>
       </draggable>
@@ -131,6 +132,21 @@ const timeChanged = (time) => {
   mRef.value.time = mRef.value.time - time.oldTime
   mRef.value.time = mRef.value.time + time.newTime
   updateStartTime()
+}
+
+const updateAgenda = ({ original, updated }) => {
+  const pos = mRef.value.agenda.findIndex((a) => a === original)
+  if (pos !== -1) {
+    // update existing agenda object in-place to preserve identity (avoids remounting inputs)
+    Object.assign(mRef.value.agenda[pos], updated)
+    // recalc meeting duration
+    let total = 0
+    for (let a of mRef.value.agenda) {
+      total += (parseInt(a.time) || 0)
+    }
+    mRef.value.time = total
+    updateStartTime()
+  }
 }
 
 const router = useRouter()
