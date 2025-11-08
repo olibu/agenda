@@ -232,20 +232,24 @@ const meeting = store.getMeeting(id)
 
 const mRef = ref(meeting)   // reference to the meeting (agenda)
 
+import { v4 as uuidv4 } from 'uuid'
+
 const addAgenda = (agenda) => {
-  mRef.value.agenda.push({title: agenda.title, time: agenda.time})
-  mRef.value.time = mRef.value.time + agenda.time
+  mRef.value.agenda.push({id: uuidv4(), title: agenda.title, time: agenda.time})
+  mRef.value.time = mRef.value.time + (parseInt(agenda.time) || 0)
   calculateEndTime()
 }
-const deleteAgenda = (agenda) => {
-  // delete agenda if it is not the last one
-  let pos = mRef.value.agenda.findIndex((a) => a === agenda)
+const deleteAgenda = (agendaId) => {
+  // delete agenda by id
+  let pos = mRef.value.agenda.findIndex((a) => a.id === agendaId)
   // set the current id to the correct position if an entry before the current one has been deleted
   if (pos < currentAgendaId.value) {
     currentAgendaId.value -= 1
   }
-  mRef.value.agenda.splice(pos, 1)
-  calculateEndTime()
+  if (pos !== -1) {
+    mRef.value.agenda.splice(pos, 1)
+    calculateEndTime()
+  }
 }
 
 const timeChanged = (time) => {
@@ -254,10 +258,9 @@ const timeChanged = (time) => {
   calculateEndTime()
 }
 
-const updateAgenda = ({ original, updated }) => {
-  const pos = mRef.value.agenda.findIndex((a) => a === original)
+const updateAgenda = ({ id, updated }) => {
+  const pos = mRef.value.agenda.findIndex((a) => a.id === id)
   if (pos !== -1) {
-    // update in-place to preserve object identity
     Object.assign(mRef.value.agenda[pos], updated)
     // if the updated agenda is the currently active one, update local reference and title
     if (currentAgendaId.value === pos) {

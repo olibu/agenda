@@ -45,5 +45,6 @@ import { useTheme } from 'vuetify'
 const store = useMeetingStore()
 
 store.refreshTheme(useTheme())
+store.migrateAgendaIds()
 
 </script>

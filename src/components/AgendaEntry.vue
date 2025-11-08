@@ -85,7 +85,7 @@ const interactiveBgColor = () => {
 }
 
 const deleteAgendaEntry = () => {
-  emit('delete', props.agenda)
+  emit('delete', props.agenda.id)
 }
 
 const emitUpdate = () => {
@@ -95,8 +95,8 @@ const emitUpdate = () => {
     time: parseInt(timeLocal.value) || 0,
     starttime: starttime.value,
   }
-  // provide original reference so parent can find and update the correct item
-  emit('update', { original: props.agenda, updated })
+  // emit id so parent can find and update the correct item
+  emit('update', { id: props.agenda.id, updated })
 }
 
 const onTimeChange = () => {

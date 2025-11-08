@@ -6,8 +6,8 @@
     >
         <v-list-item
           class="ma-2"
-          v-for="(meeting, i) in store.meetings"
-          :key="i"
+          v-for="meeting in store.meetings"
+          :key="meeting.id"
           :value="meeting"
           rounded="lg"
           color="primary"

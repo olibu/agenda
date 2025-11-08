@@ -115,17 +115,21 @@ watch(() => route.params.id, (newValue) => {
   }
 })
 
+import { v4 as uuidv4 } from 'uuid'
+
 const addAgenda = (agenda) => {
-  mRef.value.agenda.push({title: agenda.title, time: agenda.time, starttime: agenda.starttime})
-  mRef.value.time = mRef.value.time + agenda.time
+  mRef.value.agenda.push({id: uuidv4(), title: agenda.title, time: agenda.time, starttime: agenda.starttime})
+  mRef.value.time = mRef.value.time + (parseInt(agenda.time) || 0)
   updateStartTime()
 }
 
-const deleteAgenda = (agenda) => {
-  // delete agenda if it is not the last one
-  let pos = mRef.value.agenda.findIndex((a) => a === agenda)
-  mRef.value.agenda.splice(pos, 1)
-  updateStartTime()
+const deleteAgenda = (agendaId) => {
+  // delete agenda by id
+  let pos = mRef.value.agenda.findIndex((a) => a.id === agendaId)
+  if (pos !== -1) {
+    mRef.value.agenda.splice(pos, 1)
+    updateStartTime()
+  }
 }
 
 const timeChanged = (time) => {
@@ -134,10 +138,9 @@ const timeChanged = (time) => {
   updateStartTime()
 }
 
-const updateAgenda = ({ original, updated }) => {
-  const pos = mRef.value.agenda.findIndex((a) => a === original)
+const updateAgenda = ({ id, updated }) => {
+  const pos = mRef.value.agenda.findIndex((a) => a.id === id)
   if (pos !== -1) {
-    // update existing agenda object in-place to preserve identity (avoids remounting inputs)
     Object.assign(mRef.value.agenda[pos], updated)
     // recalc meeting duration
     let total = 0

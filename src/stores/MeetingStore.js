@@ -40,6 +40,16 @@ export const useMeetingStore = defineStore('MeetingStore', {
         return meeting
       }
       let meeting = this.meetings.find((meeting) => meeting.id === id)
+      if (!meeting) {
+        // return an empty meeting if id not found
+        return {
+          id: -1,
+          title: '',
+          time: 0,
+          starttime: '09:00',
+          agenda: [],
+        }
+      }
       if (!meeting.starttime) {
         meeting.starttime = '09:00'
       }
@@ -85,6 +95,23 @@ export const useMeetingStore = defineStore('MeetingStore', {
         }
       }
       vTheme.global.name.value = themeSetting
+    },
+    // Migration: ensure every agenda item has a stable id
+    migrateAgendaIds() {
+      let changed = false
+      for (let meeting of this.meetings) {
+        if (!meeting.agenda) continue
+        for (let item of meeting.agenda) {
+          if (!item.id) {
+            item.id = uuidv4()
+            changed = true
+          }
+        }
+      }
+      // if changed, rewrite the meetings array to ensure persistence plugins notice changes
+      if (changed) {
+        this.meetings = JSON.parse(JSON.stringify(this.meetings))
+      }
     },
   },
 })
