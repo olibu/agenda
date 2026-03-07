@@ -24,3 +24,9 @@ For development purposes the following additional frameworks are used
 * vite-plugin-pwa (PWD capabilities)
 * eslint
 
+## Tesing the build version
+
+```
+npm run build
+npx http-server ./
+```

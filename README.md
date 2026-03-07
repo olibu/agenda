@@ -79,6 +79,14 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.11.3
+
+* Update: Latest libaries
+
+### V0.11.2
+
+* Update: Latest libaries
+
 ### V0.11.1
 
 * Update: Latest libaries
@@ -178,6 +186,7 @@ Initial version with the following basic features
 * Reduce time of active agenda entry via button
 * Wider layout for larger screens
 * P2P connection between multiple agenda app instances
+* Meeting specific automatic move options
 
 ## License
 
