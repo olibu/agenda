@@ -79,6 +79,11 @@ More details will be available in the [development section](DEVELOPMENT.md) in f
 
 ## Release Notes
 
+### V0.11.4
+
+* Better spacing 
+* Update: Latest libaries
+
 ### V0.11.3
 
 * Update: Latest libaries

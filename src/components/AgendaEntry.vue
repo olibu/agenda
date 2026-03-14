@@ -1,6 +1,6 @@
 <template>
   <v-row
-    class="pa-2 ma-1 rounded-lg d-flex flex-nowrap"
+    class="pa-1 ma-1 rounded-lg d-flex flex-nowrap ga-1"
     align="center"
     v-bind:class="interactiveBgColor()"
   >
@@ -9,7 +9,7 @@
       density="compact"
       variant="outlined"
       hide-details="auto"
-      class="w80px pr-1"
+      class="w80px"
       :value="starttime"
       readonly
       tabindex="-1"
@@ -20,7 +20,6 @@
       variant="outlined"
       hide-details="auto"
       v-model="title"
-      class="pr-1"
       :readonly="props.agenda && props.agenda.isActive"
       @blur="emitUpdate"
     />
@@ -48,7 +47,7 @@
       icon="mdi-drag-vertical"
       density="compact"
       variant="text"
-      class="handle move"
+      class="ml-n2 handle move"
     />
   </v-row>
 </template>

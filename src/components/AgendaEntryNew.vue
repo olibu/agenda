@@ -1,6 +1,6 @@
 <template>
   <v-row
-    class="pa-2 ma-1 rounded-lg d-flex flex-nowrap bg-newentry"
+    class="pa-1 ma-1 rounded-lg d-flex flex-nowrap bg-newentry ga-1"
     align="center"
   >
   <v-text-field
@@ -8,7 +8,7 @@
       density="compact"
       variant="outlined"
       hide-details="auto"
-      class="w80px pr-1"
+      class="w80px"
       readonly
       tabindex="-1"
     />
@@ -18,7 +18,6 @@
       variant="outlined"
       hide-details="auto"
       v-model="title"
-      class="pr-1"
       @keyup.enter="checkEnter"
       ref="titleRef"
     />
@@ -44,6 +43,7 @@
       icon="mdi-blank"
       density="compact"
       variant="text"
+      class="ml-n2"
     />
   </v-row>
 </template>
